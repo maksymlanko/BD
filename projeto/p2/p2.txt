@@ -47,7 +47,7 @@ anomaliaTraducao(id, zona2, lingua2)
 
 
 incidencia(aid, email, lid)
-		   --
+		   ---
 
 	aid: FK(anomalia.id)
 	email: FK(utilizador.email
