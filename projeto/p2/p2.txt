@@ -1,26 +1,36 @@
 utilizador(email, password)
 		   -----
+	
+	unique(email)
+
 
 utilizador regular(email)
 				   -----
 
 	email: FK(utilizador.email)
 
+
 utilizador qualificado(email)
 					   -----
 
 	email: FK(utilizador.email)
 
+
 proposta de correcao(email, nro, dataHora, texto)
 					 -----------
 
 	email: FK(utilizadorQualificado.email)
+	
 
 anomalia(id, lingua, imagem, zona, ts, descricao)
 		 --
 
+	unique(id)
+
 item(id, descricao, localizacao)
 	 --
+
+	unique(id)
 
 existe_em(id, coordenadas)
 		  --
