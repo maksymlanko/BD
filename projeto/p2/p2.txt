@@ -4,17 +4,17 @@ utilizador(email, password)
 utilizador regular(email)
 				   -----
 
-	FK(utilizador.email)
+	email: FK(utilizador.email)
 
 utilizador qualificado(email)
 					   -----
 
-	FK(utilizador.email)
+	email: FK(utilizador.email)
 
 proposta de correcao(email, nro, dataHora, texto)
 					 -----------
 
-	FK(utilizadorQualificado.email)
+	email: FK(utilizadorQualificado.email)
 
 anomalia(id, lingua, imagem, zona, ts, descricao)
 		 --
@@ -25,8 +25,8 @@ item(id, descricao, localizacao)
 existe_em(id, coordenadas)
 		  --
 
-	FK(item.id)
-	FK(LocalPublico.coordenadas)
+	id: FK(item.id)
+	coordenadas: FK(LocalPublico.coordenadas)
 
 
 localPublico(coordenadas)
@@ -35,28 +35,28 @@ localPublico(coordenadas)
 anomaliaRedacao(id)
 				--
 
-	FK(anomalia.id)
+	id: FK(anomalia.id)
 
 	
 anomaliaTraducao(id, zona2, lingua2)
 				 --
-	FK(anomalia.id)
+	id: FK(anomalia.id)
 
 	RI-1: As zonas nao se podem sobrepor
 	RI-2: As linguas nao podem ser iguais
 
 
-incidencia(id, email, id)
+incidencia(aid, email, lid)
 		   --
 
-	FK(anomalia.id)
-	FK(utilizador.email
-	FK(item.id)
+	aid: FK(anomalia.id)
+	email: FK(utilizador.email
+	lid: FK(item.id)
 
 
 duplicado(id)
 		  --
-	FK(item.id)
+	id: FK(item.id)
 
 	RI-3: Um item nao pode ser duplicado de si proprio
 
