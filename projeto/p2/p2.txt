@@ -1,0 +1,76 @@
+utilizador(email, password)
+		   -----
+	
+	unique(email)
+
+
+utilizador regular(email)
+				   -----
+
+	email: FK(utilizador.email)
+
+
+utilizador qualificado(email)
+					   -----
+
+	email: FK(utilizador.email)
+
+
+proposta de correcao(email, nro, dataHora, texto)
+					 -----------
+
+	email: FK(utilizadorQualificado.email)
+	
+
+anomalia(id, lingua, imagem, zona, ts, descricao)
+		 --
+
+	unique(id)
+
+item(id, descricao, localizacao)
+	 --
+
+	unique(id)
+
+existe_em(id, coordenadas)
+		  --
+
+	id: FK(item.id)
+	coordenadas: FK(LocalPublico.coordenadas)
+
+
+localPublico(coordenadas)
+			 -----------
+
+anomaliaRedacao(id)
+				--
+
+	id: FK(anomalia.id)
+
+	
+anomaliaTraducao(id, zona2, lingua2)
+				 --
+	id: FK(anomalia.id)
+
+	RI-1: As zonas nao se podem sobrepor
+	RI-2: As linguas nao podem ser iguais
+
+
+incidencia(aid, email, lid)
+		   ---
+
+	aid: FK(anomalia.id)
+	email: FK(utilizador.email
+	lid: FK(item.id)
+
+
+duplicado(id)
+		  --
+	id: FK(item.id)
+
+	RI-3: Um item nao pode ser duplicado de si proprio
+
+
+correcao(????
+
+
