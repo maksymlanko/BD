@@ -47,7 +47,7 @@
 <body> 
 <?php include 'connect.php'; ?><!--DB connection-->
 
-<?php include 'debug.php'; ?><!--every DB table-->
+<?php #include 'debug.php'; ?><!--every DB table-->
 
 <table id="local_publico">
     <tr><th colspan="2">Local Público</th></tr>

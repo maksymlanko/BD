@@ -20,17 +20,17 @@ create table item(
 --https://www.journaldev.com/16774/sql-data-types
 create table anomalia(
 	id serial primary key not null unique,
-	zona varchar(20) not null,	--MUDAR TIPO
-	imagem bytea not null,
+	zona varchar(21) not null,	--(0000,0000,0000,0000)
+	imagem varchar(100) not null,
 	lingua varchar(30) not null,
 	ts TIMESTAMP default CURRENT_TIMESTAMP not null,
 	descricao varchar(500) not null,
-	tem_anomaila_redacao boolean,
+	tem_anomaila_redacao boolean
 );
 
 create table anomalia_traducao(
 	id int not null,
-	zona2 varchar(20) not null,	--MUDAR TIPO
+	zona2 varchar(21) not null,
 	lingua2 varchar(30) not null,
 	FOREIGN KEY (id) REFERENCES anomalia(id)
 );
