@@ -47,7 +47,7 @@
 <body> 
 <?php include 'connect.php'; ?><!--DB connection-->
 
-<?php #include 'debug.php'; ?><!--every DB table-->
+<?php include 'debug.php'; ?><!--every DB table-->
 
 <table id="local_publico">
     <tr><th colspan="2">Local Público</th></tr>
@@ -60,7 +60,7 @@
             echo("<tr>"); 
             echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
             echo("<td>".$row['nome']."</td>");
-            echo("<td><a href='local.php?latitude=".$row['latitude'].".&longitude=".$row['longitude']."'>Delete Entry</a></td>");
+            echo("<td><a href='local.php?latitude=".$row['latitude']."&longitude=".$row['longitude']."'>Delete Entry</a></td>");
             echo("</tr>\n");
         }
     ?>
@@ -71,7 +71,7 @@
     <tr><th colspan="4">Item</th></tr>
     <tr><th class='PrimaryKey'>id</th><th>Descrição</th><th>localização</th><th>latitude, longitude</th></tr>
     <?php 
-        $sql = "SELECT * FROM anomalia;";
+        $sql = "SELECT * FROM item;";
         $result = $db->prepare($sql);
         $result->execute();
         foreach($result as $row){

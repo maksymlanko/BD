@@ -5,4 +5,6 @@ Samuel/*
 index.html
 projeto/index.html
 projeto/p3/index.html
-
+.vscode/**/*
+.vscode
+projeto/p3/TESTES/samuel/populate.sql

@@ -19,7 +19,7 @@
         <tr><th colspan="4">Item</th></tr>
         <tr><th class='PrimaryKey'>id</th><th>Descrição</th><th>localização</th><th>latitude, longitude</th></tr>
         <?php 
-            $sql = "SELECT * FROM anomalia;";
+            $sql = "SELECT * FROM item;";
             $result = $db->prepare($sql);
             $result->execute();
             foreach($result as $row){
