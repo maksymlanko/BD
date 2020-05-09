@@ -22,198 +22,95 @@
         .PrimaryKey{
             /*color: red;*/
         }
+        table{
+            border: 1px solid orange;
+            margin-bottom: 20px;
+        }
+        th, td{
+            border: 1px solid orange;
+        }
+        .PrimaryKey{
+            /*color: red;*/
+        }
+        .new{
+            margin-top: 5px;
+            text-align: center;
+        }
+        .new a{
+            text-decoration: none;
+        }
+        .new a:hover{
+            color:red;
+        }
     </style>
 </head>
 <body> 
-<?php include 'info.php'; ?><!--DB params-->
-<?php
-try{
-    $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);     #open DB
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
-}
-?>
-<center>
-    <table class="debuggerTable" id="local_publico">
-        <tr><th colspan="2">Local Público</th></tr>
-        <tr><th class='PrimaryKey'>Latitude, Longitude</th><th>Nome</th></tr>
-        <?php 
-            $sql = "SELECT * FROM local_publico;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
-                echo("<td>".$row['nome']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="item">
-        <tr><th colspan="4">Item</th></tr>
-        <tr><th class='PrimaryKey'>id</th><th>Descrição</th><th>localização</th><th>latitude, longitude</th></tr>
-        <?php 
-            $sql = "SELECT * FROM anomalia;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['id']."</td>");
-                echo("<td>".$row['descricao']."</td>");
-                echo("<td>".$row['localizacao']."</td>");
-                echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="anomalia">
-        <tr><th colspan="7">Anomalias</th></tr>
-        <tr><th class='PrimaryKey'>id</th><th>Zona</th><th>Imagem</th><th>Língua</th><th>TimeStamp</th><th>Descrição</th><th>Redação</th></tr>
-        <?php 
-            #https://stackoverflow.com/questions/22210612/display-image-from-postgresql-database-in-php
-            $sql = "SELECT * FROM anomalia;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['id']."</td>");
-                echo("<td>".$row['zona']."</td>");
-                echo("<td>".$row['imagem']."</td>");
-                echo("<td>".$row['lingua']."</td>");
-                echo("<td>".$row['ts']."</td>");
-                echo("<td>".$row['descricao']."</td>");
-                echo("<td>".$row['redacao']."</td>");
+<?php include 'connect.php'; ?><!--DB connection-->
 
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="anomalia_traducao">
-        <tr><th colspan="3">Anomalias de Tradução</th></tr>
-        <tr><th class='PrimaryKey'>id</th><th>Zona 2</th><th>Língua 2</th></tr>
-        <?php 
-            $sql = "SELECT * FROM anomalia_traducao;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['id']."</td>");
-                echo("<td>".$row['zona2']."</td>");
-                echo("<td>".$row['lingua2']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>    
-    <table class="debuggerTable" id="duplicado">
-        <tr><th colspan="2">Itens Duplicados</th></tr>
-        <tr><th class='PrimaryKey'>Item 1</th><th class='PrimaryKey'>Item 2</th></tr>
-        <?php 
-            $sql = "SELECT * FROM duplicado;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['item1']."</td>");
-                echo("<td>".$row['item2']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="utilizador">
-        <tr><th colspan="2">Utilizadores</th></tr>
-        <tr><th class='PrimaryKey'>Email</th><th>Password</th></tr>
-        <?php 
-            $sql = "SELECT * FROM Utilizador;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['email']."</td>");
-                echo("<td>".$row['password']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="utilizador_qualificado">
-        <tr><th colspan="1">Utilizadores Qualificados</th></tr>
-        <tr><th class='PrimaryKey'>Email</th></tr>
-        <?php 
-            $sql = "SELECT * FROM Utilizador_qualificado;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['email']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="utilizador_regular">
-        <tr><th colspan="1">Utilizadores Regulares</th></tr>
-        <tr><th class='PrimaryKey'>Email</th></tr>
-        <?php 
-            $sql = "SELECT * FROM Utilizador_regular;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['email']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="incidencia">
-        <tr><th colspan="3">Incidências</th></tr>
-        <tr><th class='PrimaryKey'>Anomalia</th><th>Item</th><th>Utilizador</th></tr>
-        <?php 
-            $sql = "SELECT * FROM incidencia;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['anomalia_id']."</td>");
-                echo("<td>".$row['item_id']."</td>");
-                echo("<td>".$row['email']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="proposta_de_correcao">
-        <tr><th colspan="4">Propósta de Correção</th></tr>
-        <tr><th class='PrimaryKey'>Utilizador</th><th class='PrimaryKey'>Número</th><th>Data e Hora</th><th>Comentário</th></tr>
-        <?php 
-            $sql = "SELECT * FROM proposta_de_correcao;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['email']."</td>");
-                echo("<td>".$row['nro']."</td>");
-                echo("<td>".$row['data_hora']."</td>");
-                echo("<td>".$row['texto']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-    <table class="debuggerTable" id="correcao">
-        <tr><th colspan="3">Correção</th></tr>
-        <tr><th class='PrimaryKey'>Utilizador</th><th class='PrimaryKey'>Número</th><th class='PrimaryKey'>Anomalia</th></tr>
-        <?php 
-            $sql = "SELECT * FROM correcao;";
-            $result = $db->prepare($sql);
-            $result->execute();
-            foreach($result as $row){
-                echo("<tr>"); 
-                echo("<td>".$row['email']."</td>");
-                echo("<td>".$row['nro']."</td>");
-                echo("<td>".$row['anomalia_id']."</td>");
-                echo("</tr>\n");
-            }
-        ?>
-    </table>
-</center>
+<?php #include 'debug.php'; ?><!--every DB table-->
+
+<table id="local_publico">
+    <tr><th colspan="2">Local Público</th></tr>
+    <tr><th class='PrimaryKey'>Latitude, Longitude</th><th>Nome</th></tr>
+    <?php 
+        $sql = "SELECT * FROM local_publico;";
+        $result = $db->prepare($sql);
+        $result->execute();
+        foreach($result as $row){
+            echo("<tr>"); 
+            echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
+            echo("<td>".$row['nome']."</td>");
+            echo("<td><a href='local.php?latitude=".$row['latitude'].".&longitude=".$row['longitude']."'>Delete Entry</a></td>");
+            echo("</tr>\n");
+        }
+    ?>
+    <tr></tr>
+    <tr><td colspan="2" class="new"><a href='local.php'>Incerir novo local</a></td></tr>
+</table>
+<table class="debuggerTable" id="item">
+    <tr><th colspan="4">Item</th></tr>
+    <tr><th class='PrimaryKey'>id</th><th>Descrição</th><th>localização</th><th>latitude, longitude</th></tr>
+    <?php 
+        $sql = "SELECT * FROM anomalia;";
+        $result = $db->prepare($sql);
+        $result->execute();
+        foreach($result as $row){
+            echo("<tr>"); 
+            echo("<td>".$row['id']."</td>");
+            echo("<td>".$row['descricao']."</td>");
+            echo("<td>".$row['localizacao']."</td>");
+            echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
+            echo("<td><a href='item.php?id=".$row['id']."'>Delete Entry</a></td>");
+            echo("</tr>\n");
+        }
+    ?>
+    <tr></tr>
+    <tr><td colspan="4" class="new"><a href='item.php'>Incerir novo Item</a></td></tr>
+</table>
+<table class="debuggerTable" id="anomalia">
+    <tr><th colspan="7">Anomalias</th></tr>
+    <tr><th class='PrimaryKey'>id</th><th>Zona</th><th>Imagem</th><th>Língua</th><th>TimeStamp</th><th>Descrição</th><th>Redação</th></tr>
+    <?php 
+        $sql = "SELECT * FROM anomalia;";
+        $result = $db->prepare($sql);
+        $result->execute();
+        foreach($result as $row){
+            echo("<tr>"); 
+            echo("<td>".$row['id']."</td>");
+            echo("<td>".$row['zona']."</td>");
+            echo("<td><a href='viewImage.php?id=".$row['id']."'>Open Image</a></td>");
+            echo("<td>".$row['lingua']."</td>");
+            echo("<td>".$row['ts']."</td>");
+            echo("<td>".$row['descricao']."</td>");
+            echo("<td>".$row['redacao']."</td>");
+            echo("<td><a href='anomalia.php?id=".$row['id']."'>Delete Entry</a></td>");
+            echo("</tr>\n");
+        }
+    ?>
+    <tr></tr>
+    <tr><td colspan="7" class="new"><a href='anomalia.php'>Incerir nova Anomalia</a></td></tr>
+</table>
+
 <?php $db = null; ?>
 </body>
 </html>
