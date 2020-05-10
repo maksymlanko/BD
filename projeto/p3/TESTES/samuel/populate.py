@@ -3,7 +3,7 @@ import string
 
 numUsers=0
 numLocais=20
-numItens=20
+numItens=50
 numAnom=20
 
 insert = "INSERT INTO {} ({}) VALUES({});\n"
@@ -53,21 +53,29 @@ def item():
     return insert.format("item", "descricao, localizacao, latitude, longitude", "'"+text+"', '"+text2+"', '"+str(lat)+"', '"+str(lon)+"'")
 
 def anomalia():
-    zona=[random.randint(0,9998),random.randint(0,9998)]
-    fimZona=[random.randint(zona[0],9999),random.randint(zona[1],9999)]
+    zona=[random.randint(0,4999),random.randint(0,4999)]
+    fimZona=[random.randint(zona[0],5000),random.randint(zona[1],5000)]
     zona=[zona[0],zona[1],fimZona[0],fimZona[1]]
     img="https://picsum.photos/200/300"
     ling = stringGen(size=25)
     text2 = stringGen(size=55)
     tabelas["anomalia"].append((zona, img, ling, text2))
-    return insert.format("anomalia", "zona, imagem, lingua, descricao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"'")
 
+    final=insert.format("anomalia", "zona, imagem, lingua, descricao, tem_anomaila_traducao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"', 'False'")
+    """if(random.randint(0,5)==0):3
+        zona=[random.randint(5001,9998),random.randint(5001,9998)]
+        fimZona=[random.randint(zona[0],9999),random.randint(zona[1],9999)]
+        ling = stringGen(size=25)
+        tabelas["anomalia_traducao"].append((zona, img, ling, text2))
+        final.append(insert.format())
+    """
+    return final
 
 def stringGen(size=16, email=False):
     letters = string.ascii_letters
     text=''.join(random.choice(letters) for i in range(size))
     if email:
-        text = text.join('@ist.utl.pt')
+        return text+'@ist.utl.pt'
     return text
 
 def coorGen():
@@ -76,11 +84,15 @@ def coorGen():
     return (lat,lon)
 
 def hardCodeMe():
-    strings=[user(("samuel.barata@ist.utl.pt", "L0L")),    ]
+    strings=[user(("samuel.barata@ist.utl.pt", "L0L")),
+    "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomaila_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');",
+    "INSERT INTO anomalia_traducao(id, zona2, lingua2) VALUES ('1', '(0,50,50,100)', 'Ingles');"
+    ]
     for i in strings:
         r.write(i)
 
 r = open("projeto/p3/TESTES/samuel/populate.sql", 'w')
+hardCodeMe()
 for i in range(numUsers):
     r.write(user((stringGen(email=True),stringGen())))
 
@@ -93,6 +105,5 @@ for i in range(numItens):
 for i in range(numAnom):
     r.write(anomalia())
 
-#hardCodeMe()
 r.flush()
 r.close()

@@ -45,9 +45,22 @@
     </style>
 </head>
 <body> 
-<?php include 'connect.php'; ?><!--DB connection-->
-
-<?php #include 'debug.php'; ?><!--every DB table-->
+<?php include 'connect.php'; #DB connection ?>
+<?php
+    function process_boolean($bool){
+        if($bool=='1')
+            return 'True';
+        else
+            return 'False';
+    }
+?>
+<?php #include 'debug.php'; ?>
+<?php
+    #func: 
+    #       0 new
+    #       1 delete
+    #       2 edit
+?>
 
 <table id="local_publico">
     <tr><th colspan="2">Local Público</th></tr>
@@ -60,7 +73,7 @@
             echo("<tr>"); 
             echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
             echo("<td>".$row['nome']."</td>");
-            echo("<td><a href='local.php?latitude=".$row['latitude']."&longitude=".$row['longitude']."'>Delete Entry</a></td>");
+            echo("<td><a href='local.php?func='1'&latitude=".$row['latitude']."&longitude=".$row['longitude']."'>Delete Entry</a></td>");
             echo("</tr>\n");
         }
     ?>
@@ -80,7 +93,7 @@
             echo("<td>".$row['descricao']."</td>");
             echo("<td>".$row['localizacao']."</td>");
             echo("<td>".'('.$row['latitude'].', '.$row['longitude'].')'."</td>");
-            echo("<td><a href='item.php?id=".$row['id']."'>Delete Entry</a></td>");
+            echo("<td><a href='item.php?func='1'&id=".$row['id']."'>Delete Entry</a></td>");
             echo("</tr>\n");
         }
     ?>
@@ -102,8 +115,8 @@
             echo("<td>".$row['lingua']."</td>");
             echo("<td>".$row['ts']."</td>");
             echo("<td>".$row['descricao']."</td>");
-            echo("<td>".$row['redacao']."</td>");
-            echo("<td><a href='anomalia.php?id=".$row['id']."'>Delete Entry</a></td>");
+            echo("<td>".process_boolean($row['tem_anomaila_traducao'])."</td>");
+            echo("<td><a href='anomalia.php?func='1'&id=".$row['id']."'>Delete Entry</a></td>");
             echo("</tr>\n");
         }
     ?>

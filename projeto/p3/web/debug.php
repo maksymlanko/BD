@@ -48,7 +48,7 @@
                 echo("<td>".$row['lingua']."</td>");
                 echo("<td>".$row['ts']."</td>");
                 echo("<td>".$row['descricao']."</td>");
-                echo("<td>".$row['redacao']."</td>");
+                echo("<td>".process_boolean($row['tem_anomaila_traducao'])."</td>");
 
                 echo("</tr>\n");
             }
