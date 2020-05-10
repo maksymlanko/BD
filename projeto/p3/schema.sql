@@ -25,7 +25,7 @@ create table anomalia(
 	lingua varchar(30) not null,
 	ts TIMESTAMP default CURRENT_TIMESTAMP not null,
 	descricao varchar(500) not null,
-	tem_anomaila_traducao boolean not null
+	tem_anomalia_traducao boolean not null
 );
 
 create table anomalia_traducao(

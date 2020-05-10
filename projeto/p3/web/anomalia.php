@@ -115,7 +115,7 @@ try{
 
 }
 catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
+    echo $e;
     exit();
 }
 ?>
@@ -125,8 +125,10 @@ catch (PDOException $e) {
 $(document).ready(function(){ 
     $("input[name$='traducao']").click(function() {
         var test = $(this).val();
-        $("p.traducao").hide();
-        $("p.traducao"+test).show();
+        $(".traducao").hide();
+        $(".traducao"+test).show();
+        $("input.in").prop('required',false);
+        $("input.in"+test).prop('required',true);
     }); 
 });
 
@@ -144,7 +146,7 @@ $(document).ready(function(){
     <p>Lingua: <input required value="<?=$lingua?>" type="text" name="lingua"/></p>
     <p style="display: none;">Date: <input value="<?=$ta?>" type="date" name="date"/></p>
     <p style="display: none;">Time: <input value="<?=$tb?>" type="time" name="time"/></p>
-    <p>Descricao: <input required value="<?=$descricao?>" type="text" name="balance"/></p>
+    <p>Descricao: <input required value="<?=$descricao?>" type="text" name="descricao"/></p>
     <p>Anomalia de Traducao: 
         <br>
         <input type="radio" id="false" name="traducao" value="False" <?=$inFalse?>>
@@ -152,8 +154,8 @@ $(document).ready(function(){
         <input type="radio" id="true" name="traducao" value="True" <?=$inTrue?>>
         <label for="True">Sim</label><br>
     </p>
-    <p class="traducaoTrue traducao" style="display: none;">Zona2:  (<input value="<?=$bx1?>" required type="number" name="bx1" min="0" max="9999" size="2px"/>,<input value="<?=$by1?>" required type="number" name="by1" min="0" max="9999" size="2px"/>,<input value="<?=$bx2?>" required type="number" name="bx2" min="0" max="9999" size="2px"/>,<input value="<?=$by2?>" required type="number" name="by2" min="0" max="9999" size="2px"/>)</p>
-    <p class="traducaoTrue traducao" style="display: none;">Lingua2: <input value="<?=$lingua2?>" type="text" name="balance"/></p>
+    <p class="traducaoTrue traducao" style="display: none;">Zona2:  (<input class="inTrue in" value="<?=$bx1?>" type="number" name="bx1" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$by1?>" type="number" name="by1" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$bx2?>" type="number" name="bx2" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$by2?>" type="number" name="by2" min="0" max="9999" size="2px"/>)</p>
+    <p class="traducaoTrue traducao" style="display: none;">Lingua2: <input class="inTrue in" value="<?=$lingua2?>" type="text" name="lingua2" id="lingua2"/></p>
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
 
