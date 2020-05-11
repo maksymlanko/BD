@@ -56,9 +56,12 @@ try{
     }
     if($func==1){
         $id = $_REQUEST['id'];
-        $sql = "DELETE FROM anomalia WHERE id=$id ;";
+        $sql = "DELETE FROM anomalia WHERE id=:id ;";
         $result = $db->prepare($sql);
-        $result->execute();
+        $result->execute([':id' => $id]);
+        $sql = "DELETE FROM anomalia_traducao WHERE id=:id;";
+        $result = $db->prepare($sql);
+        $result->execute([':id' => $id]);
         $db=null;
         header('Location: index.php');
         exit();
@@ -135,7 +138,7 @@ $(document).ready(function(){
 </script>
 
 
-
+<!--checkar later se houve tempo: https://stackoverflow.com/questions/36181765/set-max-value-based-on-another-input-->
 <h3><?php echo $header; ?>Anomalia</h3>
 <form action="update.php" method="post">
     <p><input type="hidden" name="table" value="anomalia"/></p>

@@ -124,6 +124,26 @@
     <tr></tr>
     <tr><td colspan="8" class="new"><a href='anomalia.php'>Incerir nova Anomalia</a></td></tr>
 </table>
+<table class="debuggerTable" id="correcao">
+    <tr><th colspan="3">Correção</th></tr>
+    <tr><th class='PrimaryKey'>Utilizador</th><th class='PrimaryKey'>Número</th><th class='PrimaryKey'>Anomalia</th></tr>
+    <?php 
+        $sql = "SELECT * FROM correcao;";
+        $result = $db->prepare($sql);
+        $result->execute();
+        foreach($result as $row){
+            echo("<tr>"); 
+            echo("<td>".$row['email']."</td>");
+            echo("<td>".$row['nro']."</td>");
+            echo("<td>".$row['anomalia_id']."</td>");
+            echo("<td><a href='correcao.php?func=2&email=".$row['email']."&nro=".$row['nro']."&aid=".$row['anomalia_id']."'>Edit Entry</a></td>");
+            echo("<td><a href='correcao.php?func=1&email=".$row['email']."&nro=".$row['nro']."&aid=".$row['anomalia_id']."'>Delete Entry</a></td>");
+            echo("</tr>\n");
+        }
+    ?>
+    <tr></tr>
+    <tr><td colspan="8" class="new"><a href='correcao.php'>Incerir nova Correção</a></td></tr>
+</table>
 <table class="debuggerTable" id="proposta_de_correcao">
     <tr><th colspan="4">Propósta de Correção</th></tr>
     <tr><th class='PrimaryKey'>Utilizador</th><th class='PrimaryKey'>Número</th><th>Data e Hora</th><th>Comentário</th></tr>
@@ -137,38 +157,37 @@
             echo("<td>".$row['nro']."</td>");
             echo("<td>".$row['data_hora']."</td>");
             echo("<td>".$row['texto']."</td>");
+            echo("<td><a href='proposta.php?func=2&email=".$row['email']."&nro=".$row['nro']."'>Edit Entry</a></td>");
+            echo("<td><a href='proposta.php?func=1&email=".$row['email']."&nro=".$row['nro']."'>Delete Entry</a></td>");
             echo("</tr>\n");
         }
     ?>
-</table>
-<table class="debuggerTable" id="correcao">
-    <tr><th colspan="3">Correção</th></tr>
-    <tr><th class='PrimaryKey'>Utilizador</th><th class='PrimaryKey'>Número</th><th class='PrimaryKey'>Anomalia</th></tr>
-    <?php 
-        $sql = "SELECT * FROM correcao;";
-        $result = $db->prepare($sql);
-        $result->execute();
-        foreach($result as $row){
-            echo("<tr>"); 
-            echo("<td>".$row['email']."</td>");
-            echo("<td>".$row['nro']."</td>");
-            echo("<td>".$row['anomalia_id']."</td>");
-            echo("</tr>\n");
-        }
-    ?>
+    <tr></tr>
+    <tr><td colspan="8" class="new"><a href='proposta.php'>Incerir nova Proposta de Correção</a></td></tr>
 </table>
 
 <table class="debuggerTable" id="utilizador">
-    <tr><th colspan="2">Utilizadores</th></tr>
-    <tr><th class='PrimaryKey'>Email</th><th>Password</th></tr>
+    <tr><th colspan="3">Utilizadores</th></tr>
+    <tr><th class='PrimaryKey'>Email</th><th>Password</th><th>Qualificado</th></tr>
     <?php 
         $sql = "SELECT * FROM Utilizador;";
         $result = $db->prepare($sql);
         $result->execute();
+        $sql = "SELECT * FROM Utilizador_Qualificado WHERE email=:email;";
+        $result2 = $db->prepare($sql);
         foreach($result as $row){
             echo("<tr>"); 
             echo("<td>".$row['email']."</td>");
-            echo("<td>".$row['password']."</td>");
+            echo("<td>".$row['password']."</td>");    
+            
+            $result2->execute([':email' => $row['email']]);
+            foreach($result2 as $row){
+                $qual='X';
+                break;
+            }
+            echo("<td style='text-align: center;'>$qual</td>");
+            $qual='';
+            
             echo("</tr>\n");
         }
     ?>

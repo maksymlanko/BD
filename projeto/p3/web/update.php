@@ -59,6 +59,34 @@ try{
             }
             header('Location: index.php');
         }
+        elseif($table=="item"){
+            $fields='descricao, localizacao, latitude, longitude';
+            $values=':descricao, :localizacao, :latitude, :longitude';
+            
+            $descricao=$_REQUEST['descricao'];
+            $localizacao=$_REQUEST['localizacao'];
+            $latitude=$_REQUEST['lat'];
+            $longitude=$_REQUEST['lon'];
+
+            $sql = "INSERT INTO item ($fields)VALUES($values);-- RETURNING id;";
+            $result = $db->prepare($sql);
+            $result->execute([':descricao' => $descricao, ':localizacao' => $localizacao, ':latitude' => $latitude, ':longitude' => $longitude]);
+            header('Location: index.php');
+        }
+        elseif($table=="local"){
+            $fields='nome, latitude, longitude';
+            $values=':nome, :latitude, :longitude';
+            
+            $nome=$_REQUEST['nome'];
+            $latitude=$_REQUEST['lat'];
+            $longitude=$_REQUEST['lon'];
+
+            $sql = "INSERT INTO local_publico ($fields)VALUES($values);";
+            $result = $db->prepare($sql);
+            $result->execute([':nome' => $nome, ':latitude' => $latitude, ':longitude' => $longitude]);
+            header('Location: index.php');
+        }
+
     }
     elseif ($func==2) {
        
