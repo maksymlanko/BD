@@ -22,9 +22,9 @@ tabelas={
     "correcao": []
 }
 
-def user(tup):
+def user(tup, qual=0):
     tmp = random.randint(0,3)
-    if tmp==0:
+    if qual==1 or tmp==0:
         text2 = "qualificado"
         tabelas["uq"].append(tup[0])
     else:
@@ -84,10 +84,13 @@ def coorGen():
     return (lat,lon)
 
 def hardCodeMe():
-    strings=[user(("samuel.barata@ist.utl.pt", "L0L")),
-    "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomaila_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');",
-    "INSERT INTO anomalia_traducao(id, zona2, lingua2) VALUES ('1', '(0,50,50,100)', 'Ingles');"
+    strings=[user(("samuel.barata@ist.utl.pt", "L0L")), user(("test@ist.utl.pt", "password"), 1),
+    "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomaila_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');\n",
+    "INSERT INTO anomalia_traducao(id, zona2, lingua2) VALUES ('1', '(0,50,50,100)', 'Ingles');\n",
+    "INSERT INTO proposta_de_correcao (email, data_hora, texto) VALUES ('test@ist.utl.pt','2020-05-04 12:23:05' ,'text1');\n",
+    "INSERT INTO proposta_de_correcao (email, data_hora, texto) VALUES ('test@ist.utl.pt','2020-05-04 12:23:05' ,'text2');\n"
     ]
+
     for i in strings:
         r.write(i)
 

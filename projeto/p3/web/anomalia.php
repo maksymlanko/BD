@@ -141,9 +141,9 @@ $(document).ready(function(){
 <!--checkar later se houve tempo: https://stackoverflow.com/questions/36181765/set-max-value-based-on-another-input-->
 <h3><?php echo $header; ?>Anomalia</h3>
 <form action="update.php" method="post">
-    <p><input type="hidden" name="table" value="anomalia"/></p>
-    <p><input type="hidden" name="func" value="<?=$func?>"/></p>
-    <p><input type="hidden" name="id" value="<?=$id?>"/></p>
+    <p><input required type="hidden" name="table" value="anomalia"/></p>
+    <p><input required type="hidden" name="func" value="<?=$func?>"/></p>
+    <p><input required type="hidden" name="id" value="<?=$id?>"/></p>
     <p>Zona: (<input value="<?=$ax1?>" required type="number" name="x1" min="0" max="9999" size="2px"/>,<input value="<?=$ay1?>" required type="number" name="y1" min="0" max="9999" size="2px"/>,<input value="<?=$ax2?>" required type="number" name="x2" min="0" max="9999" size="2px"/>,<input value="<?=$ay2?>" required type="number" name="y2" min="0" max="9999" size="2px"/>)</p>
     <p>Imagem: <input value="<?=$imagem?>" required type="url" name="imagem"/></p>
     <p>Lingua: <input required value="<?=$lingua?>" type="text" name="lingua"/></p>

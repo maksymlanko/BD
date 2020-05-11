@@ -77,7 +77,7 @@ create table proposta_de_correcao(
 	texto varchar(500) not null,
 	PRIMARY KEY(email, nro),
 	constraint nro check(nro>0),
-	FOREIGN KEY (email) REFERENCES Utilizador(email)
+	FOREIGN KEY (email) REFERENCES Utilizador_Qualificado(email)
 );
 
 create table correcao(

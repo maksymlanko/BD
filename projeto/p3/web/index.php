@@ -142,7 +142,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="8" class="new"><a href='correcao.php'>Incerir nova Correção</a></td></tr>
+    <tr><td colspan="3" class="new"><a href='correcao.php'>Incerir nova Correção</a></td></tr>
 </table>
 <table class="debuggerTable" id="proposta_de_correcao">
     <tr><th colspan="4">Propósta de Correção</th></tr>
@@ -155,7 +155,7 @@
             echo("<tr>"); 
             echo("<td>".$row['email']."</td>");
             echo("<td>".$row['nro']."</td>");
-            echo("<td>".$row['data_hora']."</td>");
+            echo("<td>".substr($row['data_hora'], 0, 19)."</td>");
             echo("<td>".$row['texto']."</td>");
             echo("<td><a href='proposta.php?func=2&email=".$row['email']."&nro=".$row['nro']."'>Edit Entry</a></td>");
             echo("<td><a href='proposta.php?func=1&email=".$row['email']."&nro=".$row['nro']."'>Delete Entry</a></td>");
@@ -163,7 +163,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="8" class="new"><a href='proposta.php'>Incerir nova Proposta de Correção</a></td></tr>
+    <tr><td colspan="4" class="new"><a href='proposta.php'>Incerir nova Proposta de Correção</a></td></tr>
 </table>
 
 <table class="debuggerTable" id="utilizador">

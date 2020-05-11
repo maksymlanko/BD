@@ -57,6 +57,7 @@ try{
                 $result = $db->prepare($sql);
                 $result->execute([':id' => $id,':zona2' => $zona2,':lingua2' => $lingua2]);
             }
+            $db = null;
             header('Location: index.php');
         }
         elseif($table=="item"){
@@ -71,6 +72,7 @@ try{
             $sql = "INSERT INTO item ($fields)VALUES($values);-- RETURNING id;";
             $result = $db->prepare($sql);
             $result->execute([':descricao' => $descricao, ':localizacao' => $localizacao, ':latitude' => $latitude, ':longitude' => $longitude]);
+            $db = null;
             header('Location: index.php');
         }
         elseif($table=="local"){
@@ -84,12 +86,36 @@ try{
             $sql = "INSERT INTO local_publico ($fields)VALUES($values);";
             $result = $db->prepare($sql);
             $result->execute([':nome' => $nome, ':latitude' => $latitude, ':longitude' => $longitude]);
+            $db = null;
             header('Location: index.php');
         }
-
+        elseif($table=="proposta"){
+            $fields='email, data_hora, texto';
+            $values=':email, :data_hora, :texto';
+            $email=$_REQUEST['email'];
+            $texto=$_REQUEST['texto'];
+            //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
+            $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
+            $result = $db->prepare($sql);
+            $ts='CURRENT_TIMESTAMP';
+            $result->execute([':email' => $email, ':data_hora' => $ts, ':texto' => $texto]);
+            $db = null;
+            header('Location: index.php');
+        }
     }
     elseif ($func==2) {
-       
+        if($table=="proposta"){
+            $fields='email, nro, data_hora, texto';
+            $values=':email, :nro, :data_hora, :texto';
+            $email=$_REQUEST['email'];
+            $texto=$_REQUEST['texto'];
+            $nro=$_REQUEST['nro'];
+            $sql = "UPDATE proposta_de_correcao SET data_hora=CURRENT_TIMESTAMP, texto=:texto WHERE email=:email and nro=:nro;";      
+            $result = $db->prepare($sql);
+            $result->execute([':email' => $email, ':nro' => $nro, ':texto' => $texto]);
+            $db = null;
+            header('Location: index.php');
+        }
     }
 }
 catch (PDOException $e){
