@@ -2,9 +2,10 @@ import random
 import string
 
 numUsers=0
-numLocais=20
-numItens=50
-numAnom=20
+numLocais=30
+numItens=100
+numAnom=30
+numIncidencias=15
 
 insert = "INSERT INTO {} ({}) VALUES({});\n"
 
@@ -61,7 +62,7 @@ def anomalia():
     text2 = stringGen(size=55)
     tabelas["anomalia"].append((zona, img, ling, text2))
 
-    final=insert.format("anomalia", "zona, imagem, lingua, descricao, tem_anomaila_traducao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"', 'False'")
+    final=insert.format("anomalia", "zona, imagem, lingua, descricao, tem_anomalia_traducao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"', 'False'")
     """if(random.randint(0,5)==0):3
         zona=[random.randint(5001,9998),random.randint(5001,9998)]
         fimZona=[random.randint(zona[0],9999),random.randint(zona[1],9999)]
@@ -70,6 +71,15 @@ def anomalia():
         final.append(insert.format())
     """
     return final
+
+def incidencia():
+    anomalia = random.randint(1, len(tabelas["anomalia"]))
+    item = random.randint(1, len(tabelas["item"]))
+    user = random.choice(tabelas["uq"])
+    tabelas["incidencia"].append((anomalia, item, user))
+
+    return insert.format("incidencia", "anomalia_id, item_id, email", "'"+str(anomalia)+"', '"+str(item)+"', '"+user+"'")
+
 
 def stringGen(size=16, email=False):
     letters = string.ascii_letters
@@ -85,7 +95,7 @@ def coorGen():
 
 def hardCodeMe():
     strings=[user(("samuel.barata@ist.utl.pt", "L0L")), user(("test@ist.utl.pt", "password"), 1),
-    "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomaila_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');\n",
+    "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');\n",
     "INSERT INTO anomalia_traducao(id, zona2, lingua2) VALUES ('1', '(0,50,50,100)', 'Ingles');\n",
     "INSERT INTO proposta_de_correcao (email, data_hora, texto) VALUES ('test@ist.utl.pt','2020-05-04 12:23:05' ,'text1');\n",
     "INSERT INTO proposta_de_correcao (email, data_hora, texto) VALUES ('test@ist.utl.pt','2020-05-04 12:23:05' ,'text2');\n"
@@ -107,6 +117,10 @@ for i in range(numItens):
 
 for i in range(numAnom):
     r.write(anomalia())
+
+for i in range(numIncidencias):
+    r.write(incidencia())
+
 
 r.flush()
 r.close()

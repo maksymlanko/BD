@@ -85,7 +85,7 @@ create table correcao(
 	nro int not null,
 	anomalia_id int not null,
     unique(nro,email),
-	PRIMARY KEY(email,nro,anomalia_id),
+	PRIMARY KEY (email,nro,anomalia_id),
 	FOREIGN KEY (email,nro) REFERENCES proposta_de_correcao(email,nro),
     FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id)
 );

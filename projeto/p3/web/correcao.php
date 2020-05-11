@@ -29,6 +29,7 @@ try{
     }
     if($func==0){
         $header = "Nova ";
+        
     }
     if($func==1){
         $email = $_REQUEST['email'];
@@ -46,7 +47,12 @@ try{
         $email = $_REQUEST['email'];
         $nro = $_REQUEST['nro'];
         $aid = $_REQUEST['anomalia_id'];
-        $sql = "SELECT * FROM proposta_de_correcao WHERE email=:email and nro=:nro and anomalia_id=:aid;";
+        $sql='SELECT email, nro, texto, descricao, imagem FROM
+        proposta_de_correcao NATURAL JOIN correcao NATURAL JOIN incidencia LEFT JOIN anomalia
+        ON anomalia_id = anomalia.id;
+        WHERE correcao.email=:email and nro=:nro';
+
+        #$sql = "SELECT * FROM proposta_de_correcao WHERE email=:email and nro=:nro and anomalia_id=:aid;";
         $result = $db->prepare($sql);
         $result->execute([':email' => $email, ':nro' => $nro, ':aid' => $aid]);
         foreach ($result as $row) {
@@ -74,7 +80,31 @@ catch (PDOException $e) {
     <p><input type="hidden" name="table" value="correcao"/></p>
     <p><input type="hidden" name="func" value="<?=$func?>"/></p>
 
-
+    <p>Propostas de correção:
+        <select id="proposta" name="proposta" required>
+            <?php
+                $sql='SELECT * FROM proposta_de_correcao;';
+                $result = $db->prepare($sql);
+                $result->execute();
+                foreach($result as $row){
+                    echo '<option value="'.$row['email'].';'.$row['nro'].'">'.$row['texto'].' - '.$row['email'].':'.$row['nro'].'</option>';
+                }
+            ?>
+        </select>
+    </p>
+    <p>Incidência:
+        <select id="local" name="local" required>
+            <?php
+                $sql='SELECT descricao, id FROM incidencia JOIN anomalia on anomalia.id=incidencia.anomalia_id;';
+                $result = $db->prepare($sql);
+                $result->execute();
+                foreach($result as $row){
+                    echo '<option value="'.$row['id'].'">'.$row['id'].' - '.$row['descricao'].'</option>';
+                }
+            ?>
+        </select>
+    
+    </p>
 
 
 
