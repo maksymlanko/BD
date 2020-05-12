@@ -102,6 +102,19 @@ try{
             $db = null;
             header('Location: index.php');
         }
+        elseif($table=="correcao"){
+            $fields='anomalia_id, email, nro';
+            $values=':id, :email, :nro';
+            $id=$_REQUEST['local'];
+            $sql = "INSERT INTO correcao ($fields)VALUES($values);";
+            $proposta=explode(';',$_REQUEST['proposta']);
+            $email=$proposta[0];
+            $nro=$proposta[1];
+            $result = $db->prepare($sql);
+            $result->execute([':email' => $email, ':nro' => $nro, ':id' => $id]);
+            $db = null;
+            header('Location: index.php');
+        }
     }
     elseif ($func==2) {
         if($table=="proposta"){

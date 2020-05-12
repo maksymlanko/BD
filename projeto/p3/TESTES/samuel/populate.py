@@ -1,12 +1,11 @@
-import random
-import string
+import random, string, psycopg2
 
 numUsers=0
 numLocais=30
 numItens=100
 numAnom=30
 numIncidencias=15
-
+anomCutter=1
 insert = "INSERT INTO {} ({}) VALUES({});\n"
 
 tabelas={
@@ -73,7 +72,9 @@ def anomalia():
     return final
 
 def incidencia():
-    anomalia = random.randint(1, len(tabelas["anomalia"]))
+    global anomCutter
+    anomalia = anomCutter
+    anomCutter=anomCutter+1
     item = random.randint(1, len(tabelas["item"]))
     user = random.choice(tabelas["uq"])
     tabelas["incidencia"].append((anomalia, item, user))
@@ -121,6 +122,24 @@ for i in range(numAnom):
 for i in range(numIncidencias):
     r.write(incidencia())
 
-
 r.flush()
+r.close()
+
+conn = psycopg2.connect(host="localhost",database="proj3", user="postgres", password="")
+cur = conn.cursor()
+
+r = open("projeto/p3/TESTES/samuel/populate.sql", 'r')
+
+for i in r.readlines():
+    try:
+        cur.execute(i)
+        conn.commit()
+    except:
+        cur.close()
+        conn.close()
+        r.close()
+        print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
+        exit()
+cur.close()
+conn.close()
 r.close()

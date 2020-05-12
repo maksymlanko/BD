@@ -80,6 +80,18 @@ catch (PDOException $e) {
     <p><input type="hidden" name="table" value="correcao"/></p>
     <p><input type="hidden" name="func" value="<?=$func?>"/></p>
 
+    <p>Incidência:
+        <select id="local" name="local" required>
+            <?php
+                $sql='SELECT descricao, id FROM incidencia JOIN anomalia on anomalia.id=incidencia.anomalia_id;';
+                $result = $db->prepare($sql);
+                $result->execute();
+                foreach($result as $row){
+                    echo '<option value="'.$row['id'].'">'.$row['id'].' - '.$row['descricao'].'</option>';
+                }
+            ?>
+        </select>
+    </p>
     <p>Propostas de correção:
         <select id="proposta" name="proposta" required>
             <?php
@@ -92,23 +104,6 @@ catch (PDOException $e) {
             ?>
         </select>
     </p>
-    <p>Incidência:
-        <select id="local" name="local" required>
-            <?php
-                $sql='SELECT descricao, id FROM incidencia JOIN anomalia on anomalia.id=incidencia.anomalia_id;';
-                $result = $db->prepare($sql);
-                $result->execute();
-                foreach($result as $row){
-                    echo '<option value="'.$row['id'].'">'.$row['id'].' - '.$row['descricao'].'</option>';
-                }
-            ?>
-        </select>
-    
-    </p>
-
-
-
-
 
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>

@@ -193,7 +193,9 @@
     ?>
 </table>
 
-
+<p><a>Registar Incidencias e duplicados</a></p>
+<p><a>Listar anomalias entre 2 locais pubplicos</a></p>
+<p><a>Procurar anomalias próximas</a></p>
 
 <?php $db = null; ?>
 </body>
