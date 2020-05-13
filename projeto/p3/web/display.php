@@ -29,13 +29,15 @@ try{
         $lon2=$lon1;
     }
 
-    $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2, latitude, longitude 
+    $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
     FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
     LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id 
-    JOIN item on item_id=item.id;";
+    JOIN item on item_id=item.id
+    WHERE latitude BETWEEN :lat1 and :lat2
+    AND longitude BETWEEN :lon1 and :lon2;";
 
     $result = $db->prepare($sql);
-    $result->execute();
+    $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
 }
 catch (PDOException $e) {
     echo $e;
@@ -49,11 +51,6 @@ catch (PDOException $e) {
     <tr><th class='PrimaryKey'>id</th><th>Zona</th><th>Imagem</th><th>Língua</th><th>TimeStamp</th><th>Descrição</th><th>Segunda Língua</th><th>Segunda Zona</th></tr>
     <?php 
         foreach($result as $row){
-            $lat3=$row['latitude'];
-            $lon3=$row['longitude'];
-            if(!($lat3>=$lat1 && $lat3<=$lat2 && $lon3>=$lon1 && $lon3<=$lon2))
-                continue;
-
             echo("<tr>"); 
             echo("<td>".$row['id']."</td>");
             echo("<td>".$row['zona']."</td>");
