@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Anomalias  por Local</title>
+    <title>Anomalias por Local</title>
 </head>
 <body> 
 <?php include 'connect.php'; ?>
@@ -20,7 +20,8 @@ catch (PDOException $e) {
 
 
 <h3>Listar anomalias entre dois locais publicos</h3>
-<form action="display.php" method="post">    
+<form action="display.php" method="post">
+    <p><input type="hidden" name="aliena" value="e"/></p>
     <p>Local Público 1: <select id="local1" name="local1" required>
         <option disabled selected value> -- select an option -- </option>
         <?php

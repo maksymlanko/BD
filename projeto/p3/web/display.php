@@ -9,35 +9,49 @@
 <?php
 try{
     if(empty($_POST)){
+        $db = null;
         header('Location: index.php');
+        exit();
     }
-    $tmp=explode(';',$_POST['local1']);
-    $lat1=$tmp[0];
-    $lon1=$tmp[1];
-    $tmp=explode(';',$_POST['local2']);
-    $lat2=$tmp[0];
-    $lon2=$tmp[1];
+    if($_POST['alinea']=='e'){
+        $tmp=explode(';',$_POST['local1']);
+        $lat1=$tmp[0];
+        $lon1=$tmp[1];
+        $tmp=explode(';',$_POST['local2']);
+        $lat2=$tmp[0];
+        $lon2=$tmp[1];
 
-    if($lat1 > $lat2){
-        $tmp=$lat1;
-        $lat1=$lat2;
-        $lat2=$lat1;
+        $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
+        FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
+        LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id 
+        JOIN item on item_id=item.id
+        WHERE latitude BETWEEN :lat1 and :lat2
+        AND longitude BETWEEN :lon1 and :lon2;";
+
+        $result = $db->prepare($sql);
+        $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
     }
-    if($lon1 > $lon2){
-        $tmp=$lon1;
-        $lon1=$lon2;
-        $lon2=$lon1;
+    elseif($_POST['alinea']=='f'){
+        $lat=$_POST('lat');
+        $lon=$_POST('lon');
+        $dlat=$_POST('dlat');
+        $dlon=$_POST('dlon');
+
+        $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
+        FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
+        LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id 
+        JOIN item on item_id=item.id
+        ;--WHERE ;";
+
+        $result = $db->prepare($sql);
+        $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
+    }
+    else{
+        $db = null;
+        header('Location: index.php');
+        exit();
     }
 
-    $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
-    FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
-    LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id 
-    JOIN item on item_id=item.id
-    WHERE latitude BETWEEN :lat1 and :lat2
-    AND longitude BETWEEN :lon1 and :lon2;";
-
-    $result = $db->prepare($sql);
-    $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
 }
 catch (PDOException $e) {
     echo $e;
@@ -66,7 +80,7 @@ catch (PDOException $e) {
 
 </table>
 
-
+<a href="index.php">Voltar ao ecrã inicial</a>
 
 </body>
 </html>
