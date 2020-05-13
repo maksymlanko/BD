@@ -1,6 +1,7 @@
 .DS_Store
 Samuel/*
 ~$*
+.~lock*
 *.swp
 index.html
 projeto/index.html
