@@ -35,11 +35,18 @@ def user(tup, qual=0):
     text = insert.format("utilizador", "email, password", "'"+tup[0] + "', '"+tup[1]+"'") + insert.format("utilizador_{}".format(text2), "email", "'"+tup[0]+"'")
     return text
 
-def local():
-    text = stringGen()
+def local(lat=0, lon=0, text=''):
+    if(text==''):
+        text = stringGen()
     tmp=coorGen()
-    lat=float("{:.6f}".format(tmp[0]))
-    lon=float("{:.6f}".format(tmp[1]))
+    if(lat==0):
+        lat=float("{:.6f}".format(tmp[0]))
+    else:
+        lat=float("{:.6f}".format(lat))
+    if(lon==0):
+        lon=float("{:.6f}".format(tmp[1]))
+    else:
+        lon=float("{:.6f}".format(lon))
     tabelas["local_publico"].append((lat,lon,text))
     return insert.format("local_publico", "latitude, longitude, nome", "'"+str(lat)+"', '"+str(lon)+"', '"+text+"'")
 
@@ -95,7 +102,7 @@ def coorGen():
     return (lat,lon)
 
 def hardCodeMe():
-    strings=[user(("samuel.barata@ist.utl.pt", "L0L")), user(("test@ist.utl.pt", "password"), 1),
+    strings=[user(("samuel.barata@ist.utl.pt", "L0L")), user(("test@ist.utl.pt", "password"), 1), local(-90,-180,"min"), local(90,180,"max"), 
     "INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VALUES('(0,0,50,50)','https://picsum.photos/200/300', 'Portugues', 'ta mal escrito', 'True');\n",
     "INSERT INTO anomalia_traducao(id, zona2, lingua2) VALUES ('1', '(0,50,50,100)', 'Ingles');\n",
     "INSERT INTO proposta_de_correcao (email, data_hora, texto) VALUES ('test@ist.utl.pt','2020-05-04 12:23:05' ,'text1');\n",

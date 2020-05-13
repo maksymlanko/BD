@@ -186,6 +186,7 @@
         $result->execute();
         $sql = "SELECT email FROM Utilizador_Qualificado WHERE email=:email;";
         $result2 = $db->prepare($sql);
+        $qual='';
         foreach($result as $row){
             echo("<tr>"); 
             echo("<td>".$row['email']."</td>");

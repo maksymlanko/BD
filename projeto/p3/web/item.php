@@ -64,6 +64,7 @@ $( document ).ready(function() {
     <p>Localizacao: <input required value="" type="text" name="localizacao"/></p>
     
     <p>Coordenadas: <select id="local" name="local" required>
+        <option disabled selected value> -- select an option -- </option>
         <?php
             foreach($result as $row){
                 echo '<option value="'.$row['latitude'].';'.$row['longitude'].'">'.$row['nome'].' - Lat='.$row['latitude'].' Lon='.$row['longitude'].'</option>';

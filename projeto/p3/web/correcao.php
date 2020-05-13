@@ -36,7 +36,7 @@ try{
     if($func==1){
         $email = $_REQUEST['email'];
         $nro = $_REQUEST['nro'];
-        $aid = $_REQUEST['anomalia_id'];
+        $aid = $_REQUEST['aid'];
         $sql = "DELETE FROM correcao WHERE email=:email and nro=:nro and anomalia_id=:aid;";
         $result = $db->prepare($sql);
         $result->execute([':email' => $email, ':nro' => $nro, ':aid' => $aid]);
@@ -48,7 +48,7 @@ try{
         $header = "Editar ";
         $email = $_REQUEST['email'];
         $nro = $_REQUEST['nro'];
-        $aid = $_REQUEST['anomalia_id'];
+        $aid = $_REQUEST['aid'];
         $sql='SELECT email, nro, texto, descricao, imagem FROM
         proposta_de_correcao NATURAL JOIN correcao NATURAL JOIN incidencia LEFT JOIN anomalia
         ON anomalia_id = anomalia.id;
@@ -135,6 +135,7 @@ catch (PDOException $e) {
 
     <p>Incidência:
         <select id="incidencia" name="incidencia" required>
+            <option disabled selected value> -- select an option -- </option>
             <?php
                 $sql='SELECT descricao, id FROM incidencia JOIN anomalia on anomalia.id=incidencia.anomalia_id;';
                 $result = $db->prepare($sql);
@@ -164,6 +165,7 @@ catch (PDOException $e) {
 
     <p>Propostas de correção:
         <select id="proposta" name="proposta" required>
+            <option disabled selected value> -- select an option -- </option>
             <?php
                 $sql='SELECT * FROM proposta_de_correcao;';
                 $result = $db->prepare($sql);
