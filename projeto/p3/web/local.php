@@ -40,7 +40,6 @@ catch (PDOException $e) {
 <form action="update.php" method="post">
     <p><input type="hidden" name="table" value="local"/></p>
     <p><input type="hidden" name="func" value="<?=$func?>"/></p>
-    <p><input type="hidden" name="id" value="<?=$id?>"/></p>
     <p>Latitude: <input value="" required placeholder="00.000000" step="0.000001" type="number" name="lat" min="-90.000000" max="90.000000" size="10px"/></p>
     <p>Longitude: <input value="" required placeholder="000.000000" step="0.000001" type="number" name="lon" min="-180.000000" max="180.000000" size="10px"/></p>
     <p>Nome: <input required value="" type="text" name="nome"/></p>

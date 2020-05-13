@@ -42,6 +42,17 @@
         .new a:hover{
             color:red;
         }
+        .alinea{
+            margin:10px;
+            text-decoration: none;
+            font-size: 30px;
+            color: green;
+        }
+        .alinea:hover{
+            text-decoration: none;
+            font-size: 30px;
+            color: red;
+        }
     </style>
 </head>
 <body> 
@@ -192,11 +203,14 @@
         }
     ?>
 </table>
-
-<p><a>Registar Incidencias e duplicados</a></p>
-<p><a>Listar anomalias entre 2 locais pubplicos</a></p>
-<p><a>Procurar anomalias próximas</a></p>
-
 <?php $db = null; ?>
+
+<br>
+<center>
+<p><a href="d.php" class="alinea">Registar Incidencias e duplicados</a></p>
+<p><a href="e.php" class="alinea">Listar anomalias entre 2 locais públicos</a></p>
+<p><a href="f.php" class="alinea">Procurar anomalias por coordenadas</a></p>
+</center>
+<?php include "footer.php" ?>
 </body>
 </html>

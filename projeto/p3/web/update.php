@@ -105,7 +105,7 @@ try{
         elseif($table=="correcao"){
             $fields='anomalia_id, email, nro';
             $values=':id, :email, :nro';
-            $id=$_REQUEST['local'];
+            $id=$_REQUEST['incidencia'];
             $sql = "INSERT INTO correcao ($fields)VALUES($values);";
             $proposta=explode(';',$_REQUEST['proposta']);
             $email=$proposta[0];
