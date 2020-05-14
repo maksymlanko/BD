@@ -21,7 +21,7 @@ catch (PDOException $e) {
 
 <h3>Listar anomalias entre dois locais publicos</h3>
 <form action="display.php" method="post">
-    <p><input type="hidden" name="aliena" value="e"/></p>
+    <p><input type="hidden" name="al" value="e"/></p>
     <p>Local Público 1: <select id="local1" name="local1" required>
         <option disabled selected value> -- select an option -- </option>
         <?php
