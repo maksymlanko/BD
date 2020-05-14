@@ -39,6 +39,34 @@
                     $db=null;
                }
                break;
+            case 'anomalia':
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                    $aResult['error'] = 'Error in arguments!';
+                }
+                else {
+                    include 'connect.php';
+                    try{
+                        $sql='SELECT zona, imagem, lingua, ts, descricao, zona2, lingua2 FROM anomalia LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id WHERE anomalia.id=:aid;';
+                        $result = $db->prepare($sql);
+                        $result->execute([':aid' => $_POST['arguments'][0]]);
+                        foreach ($result as $row) {
+                            $aResult['zona'] = $row['zona'];
+                            $aResult['imagem'] = $row['imagem'];
+                            $aResult['lingua'] = $row['lingua'];
+                            $aResult['ts'] = $row['ts'];
+                            $aResult['descricao'] = $row['descricao'];
+                            $aResult['zona2'] = $row['zona2'];
+                            $aResult['lingua2'] = $row['lingua2'];
+                            break;
+                        }
+                    }
+                    catch (PDOException $e) {
+                        echo $e;
+                        exit();
+                    }
+                    $db=null;
+                }
+            break;
             case 'proposta':
                 if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                     $aResult['error'] = 'Error in arguments!';

@@ -73,7 +73,7 @@ create table incidencia(
 create table proposta_de_correcao(
 	email varchar(100) not null,
 	nro serial not null,
-	data_hora TIMESTAMP not null,
+	data_hora TIMESTAMP not null DEFAULT current_timestamp,
 	texto varchar(500) not null,
 	PRIMARY KEY(email, nro),
 	constraint nro check(nro>0),

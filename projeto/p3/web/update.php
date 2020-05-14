@@ -91,14 +91,31 @@ try{
         }
         elseif($table=="proposta"){
             $fields='email, data_hora, texto';
-            $values=':email, :data_hora, :texto';
+            $values=':email, :ts, :texto';
             $email=$_REQUEST['email'];
             $texto=$_REQUEST['texto'];
+            $password=$_REQUEST['password'];
+            $sql = "SELECT password FROM utilizador_qualificado NATURAL JOIN utilizador WHERE email=:email;";
+            $result = $db->prepare($sql);
+            $result->execute([':email' => $email]);
+            $check=0;
+            foreach($result as $row){
+                if($row['password']==$password){
+                    $check=1;
+                }
+                break;
+            }
+            if($check==0){
+                $db = null;
+                echo("<center><h3>Email ou Password incorrectos</h3></center>");
+                header('Refresh: 10; URL=index.php');
+                exit();
+            }
             //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
             $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
             $result = $db->prepare($sql);
-            $ts='CURRENT_TIMESTAMP';
-            $result->execute([':email' => $email, ':data_hora' => $ts, ':texto' => $texto]);
+            $ts='now()';
+            $result->execute([':email' => $email,':ts'=>$ts ,':texto' => $texto]);
             $db = null;
             header('Location: index.php');
         }
@@ -115,6 +132,18 @@ try{
             $db = null;
             header('Location: index.php');
         }
+        elseif($table=="incidencia"){
+            $fields='anomalia_id, email, item_id';
+            $values=':aid, :email, :iid';
+            $email=$_POST['utilizador'];
+            $item=$_POST['item'];
+            $anomalia=$_POST['anomalia'];
+            $sql = "INSERT INTO incidencia ($fields)VALUES($values);";
+            $result = $db->prepare($sql);
+            $result->execute([':email' => $email, ':aid' => $anomalia, ':iid' => $item]);
+            $db = null;
+            header('Location: index.php');
+        }
     }
     elseif ($func==2) {
         if($table=="proposta"){
@@ -123,7 +152,7 @@ try{
             $email=$_REQUEST['email'];
             $texto=$_REQUEST['texto'];
             $nro=$_REQUEST['nro'];
-            $sql = "UPDATE proposta_de_correcao SET data_hora=CURRENT_TIMESTAMP, texto=:texto WHERE email=:email and nro=:nro;";      
+            $sql = "UPDATE proposta_de_correcao SET data_hora=now(), texto=:texto WHERE email=:email and nro=:nro;";      
             $result = $db->prepare($sql);
             $result->execute([':email' => $email, ':nro' => $nro, ':texto' => $texto]);
             $db = null;

@@ -70,11 +70,17 @@ catch (PDOException $e) {
 <form action="update.php" method="post">
     <p><input type="hidden" name="table" value="proposta"/></p>
     <p><input type="hidden" name="func" value="<?=$func?>"/></p>
+    
     <p>Email: <input required type="email" name="email" id="email" value="<?=$email?>"/></p>
-    <p>Número: <input required type="number" name="nro" value="<?=$nro?>"/></p>
+    <p>Password: <input required type="password" name="password" id="email" value=""/></p>
+    <p style="display: none;">Número: <input disabled type="number" name="nro" value="<?=$nro?>"/></p>
     <!--<p>Date: <input required value="<?php #echo $data;?>" type="date" name="date"/></p>
     <p>Time: <input required value="<?php #echo $hora;?>" type="time" name="time"/></p>-->
-    <p>Texto: <input required value="<?=$texto?>" type="text" name="texto"/></p>
+
+
+    <p>Texto: <textarea id="texto" name="texto" cols="40" rows="5" value="<?=$texto?>"></textarea></p>
+
+    
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
 

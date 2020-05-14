@@ -208,7 +208,8 @@
 
 <br>
 <center>
-<p><a href="d.php" class="alinea">Registar Incidencias e duplicados</a></p>
+<p><a href="incidencia.php" class="alinea">Registar Incidencias</a></p>
+<p><a href="duplicados.php" class="alinea">Registar Duplicados</a></p>
 <p><a href="e.php" class="alinea">Listar anomalias entre 2 locais públicos</a></p>
 <p><a href="f.php" class="alinea">Procurar anomalias por coordenadas</a></p>
 </center>
