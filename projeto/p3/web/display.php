@@ -13,13 +13,24 @@ try{
         header('Location: index.php');
         exit();
     }
-    if($_POST['alinea']=='e'){
+    $table=$_REQUEST['al'];
+    if($table=='e'){
         $tmp=explode(';',$_POST['local1']);
         $lat1=$tmp[0];
         $lon1=$tmp[1];
         $tmp=explode(';',$_POST['local2']);
         $lat2=$tmp[0];
         $lon2=$tmp[1];
+        if($lat1 > $lat2){
+            $tmp=$lat1;
+            $lat1=$lat2;
+            $lat2=$lat1;
+        }
+        if($lon1 > $lon2){
+            $tmp=$lon1;
+            $lon1=$lon2;
+            $lon2=$lon1;
+        }
 
         $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
         FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
@@ -31,27 +42,31 @@ try{
         $result = $db->prepare($sql);
         $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
     }
-    elseif($_POST['alinea']=='f'){
-        $lat=$_POST('lat');
-        $lon=$_POST('lon');
-        $dlat=$_POST('dlat');
-        $dlon=$_POST('dlon');
+    elseif($table=='f'){
+        $lat=$_POST['lat'];
+        $lon=$_POST['lon'];
+        $dlat=$_POST['dlat'];
+        $dlon=$_POST['dlon'];
 
+
+
+        #https://stackoverflow.com/questions/45093912/how-to-get-data-from-last-x-months-postgres-sql-query-where-date-field-is-a-time
         $sql = "SELECT anomalia.id, zona, lingua, ts, anomalia.descricao, lingua2, zona2
         FROM incidencia JOIN anomalia on anomalia_id=anomalia.id 
         LEFT JOIN anomalia_traducao on anomalia.id=anomalia_traducao.id 
         JOIN item on item_id=item.id
-        ;--WHERE ;";
+        WHERE latitude BETWEEN :lat::decimal - :dlat::decimal and :lat::decimal + :dlat::decimal
+        AND longitude BETWEEN :lon::decimal - :dlon::decimal and :lon::decimal + :dlon::decimal
+        AND ts >= date_trunc('month', now()) - interval '3 month';";
 
         $result = $db->prepare($sql);
-        $result->execute([':lat1'=>$lat1,':lat2'=>$lat2,':lon1'=>$lon1,':lon2'=>$lon2]);
+        $result->execute([':lat'=>$lat,':dlat'=>$dlat,':lon'=>$lon,':dlon'=>$dlon]);
     }
     else{
         $db = null;
         header('Location: index.php');
         exit();
     }
-
 }
 catch (PDOException $e) {
     echo $e;
@@ -77,7 +92,6 @@ catch (PDOException $e) {
             echo("</tr>\n");
         }
     ?>
-
 </table>
 
 <a href="index.php">Voltar ao ecrã inicial</a>
