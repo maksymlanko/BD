@@ -51,7 +51,7 @@ def local(lat=0, lon=0, text=''):
     return insert.format("local_publico", "latitude, longitude, nome", "'"+str(lat)+"', '"+str(lon)+"', '"+text+"'")
 
 def item():
-    text = stringGen(size=200)
+    text = stringGen(size=20)
     text2 = stringGen()
     a=random.choice(tabelas["local_publico"])
     lat=a[0]

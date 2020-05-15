@@ -144,6 +144,23 @@ try{
             $db = null;
             header('Location: index.php');
         }
+        elseif($table=="duplicado"){
+            $fields='item1, item2';
+            $values=':id1, :id2';
+            $id1=$_POST['item1'];
+            $id2=$_POST['item2'];
+            if($id1>$id2){
+                $db=null;
+                echo("<center><h3>ID Item 1 deve ser menor que ID Item 2</h3></center>");
+                header('Refresh: 10; URL=index.php');
+                exit();
+            }
+            $sql = "INSERT INTO duplicado ($fields)VALUES($values);";
+            $result = $db->prepare($sql);
+            $result->execute([':id1' => $id1, ':id2' => $id2]);
+            $db = null;
+            header('Location: index.php');
+        }
     }
     elseif ($func==2) {
         if($table=="proposta"){

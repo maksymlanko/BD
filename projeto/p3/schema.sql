@@ -9,7 +9,7 @@ create table local_publico(
 
 create table item(
 	id serial primary key unique,
-	descricao varchar(255),
+	descricao varchar(40),
 	localizacao varchar(255),
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6),
