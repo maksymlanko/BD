@@ -59,7 +59,13 @@ try{
 
 }
 catch (PDOException $e) {
-    echo $e;
+    error_log($e);
+    echo '<h3 class="error">Não é possivel remover esta Proposta de Correção dado que está em uso como Correção</h3>';
+    echo "<a href='index.php'>Pagina Inicial</a>";
+    header('Refresh: 10; URL=index.php');
+    exit();
+} catch (PDOException $e) {
+    error_log($e);
     exit();
 }
 ?>
@@ -72,15 +78,13 @@ catch (PDOException $e) {
 <form action="update.php" method="post">
     <p><input type="hidden" name="table" value="proposta"/></p>
     <p><input type="hidden" name="func" value="<?=$func?>"/></p>
-    
+    <p><input type="hidden" name="mail" value="<?=$email?>"/></p>
+    <p><input type="hidden" name="nro" value="<?=$nro?>"/></p>
     <p>Email: <input required type="email" name="email" id="email" value="<?=$email?>"/></p>
     <p>Password: <input required type="password" name="password" id="email" value=""/></p>
     <p style="display: none;">Número: <input disabled type="number" name="nro" value="<?=$nro?>"/></p>
-    <!--<p>Date: <input required value="<?php #echo $data;?>" type="date" name="date"/></p>
-    <p>Time: <input required value="<?php #echo $hora;?>" type="time" name="time"/></p>-->
 
-
-    <p>Texto: <textarea id="texto" name="texto" cols="40" rows="5" value="<?=$texto?>"></textarea></p>
+    <p>Texto: <input id="texto" name="texto" value="<?=$texto?>"/></p>
 
     
     <p><input type="reset"><input type="submit" value="Submit"/></p>

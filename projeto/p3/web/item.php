@@ -35,7 +35,21 @@ try{
     }
 }
 catch (PDOException $e) {
-    echo $e;
+    error_log($e);
+    echo '<h3 class="error">Não é possivel remover este  Item dado que está referenciado pelas incidências:</h3>';
+    $sql = "SELECT item_id, descricao FROM incidencia LEFT JOIN anomalia ON anomalia_id=id WHERE item_id=:id;";
+    $result = $db->prepare($sql);
+    $result->execute([':id' => $id]);
+    echo '<center><table><tr><th>ID</th><th>Descricao</th></tr>';
+    foreach($result as $row){
+        echo "<tr><td>".$row['item_id']."</td><td>".$row['descricao']."</td></tr>";
+    }
+    echo "</table></center>";
+    echo "<a href='index.php'>Pagina Inicial</a>";
+    header('Refresh: 10; URL=index.php');
+    exit();
+} catch (PDOException $e) {
+    error_log($e);
     exit();
 }
 ?>

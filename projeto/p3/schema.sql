@@ -1,16 +1,16 @@
-create table local_publico(
-	latitude DECIMAL(8,6) not null unique,
-	longitude DECIMAL(9,6) not null unique,
-	nome varchar(255) not null,
-	primary key(latitude, longitude),
-	constraint latitude check(latitude between -90.000000 and +90.000000),
-	constraint longitude check(longitude between -180.000000 and +180.000000)
+CREATE TABLE local_publico(
+	latitude DECIMAL(8,6) NOT NULL UNIQUE,
+	longitude DECIMAL(9,6) NOT NULL UNIQUE,
+	nome VARCHAR(255) NOT NULL,
+	PRIMARY KEY(latitude, longitude),
+	CONSTRAINT latitude CHECK(latitude between -90.000000 and +90.000000),
+	CONSTRAINT longitude CHECK(longitude between -180.000000 and +180.000000)
 );
 
-create table item(
-	id serial primary key unique,
-	descricao varchar(40),
-	localizacao varchar(255),
+CREATE TABLE item(
+	id SERIAL PRIMARY KEY UNIQUE,
+	descricao VARCHAR(40),
+	localizacao VARCHAR(255),
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6),
 	FOREIGN KEY (latitude) REFERENCES local_publico(latitude),
@@ -18,73 +18,74 @@ create table item(
 );
 
 --https://www.journaldev.com/16774/sql-data-types
-create table anomalia(
-	id serial primary key not null unique,
-	zona varchar(21) not null,	--(0000,0000,0000,0000)
-	imagem varchar(100) not null,
-	lingua varchar(30) not null,
-	ts TIMESTAMP default CURRENT_TIMESTAMP not null,
-	descricao varchar(500) not null,
-	tem_anomalia_traducao boolean not null
+CREATE TABLE anomalia(
+	id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+	zona VARCHAR(21) NOT NULL,	--(0000,0000,0000,0000)
+	imagem VARCHAR(100) NOT NULL,
+	lingua VARCHAR(30) NOT NULL,
+	ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	descricao VARCHAR(500) NOT NULL,
+	tem_anomalia_traducao BOOLEAN NOT NULL
 );
 
-create table anomalia_traducao(
-	id int not null,
-	zona2 varchar(21) not null,
-	lingua2 varchar(30) not null,
+CREATE TABLE anomalia_traducao(
+	id int NOT NULL,
+	zona2 VARCHAR(21) NOT NULL,
+	lingua2 VARCHAR(30) NOT NULL,
 	FOREIGN KEY (id) REFERENCES anomalia(id)
 );
 
-create table duplicado(
-	item1 int not null,
-	item2 int not null,
+CREATE TABLE duplicado(
+	item1 int NOT NULL,
+	item2 int NOT NULL,
 	PRIMARY KEY(item1,item2),
     FOREIGN KEY (item1) REFERENCES item(id),
 	FOREIGN KEY (item2) REFERENCES item(id),
-	constraint ordem check(item1 < item2)
+	CONSTRAINT ordem check(item1 < item2)
 );
 
-create table Utilizador(
-	email varchar(100) unique not null,
-	password varchar(64) NOT NULL,
-	primary key(email),						   			    --https://www.w3schools.com/sql/sql_primarykey.ASP
-	constraint validate_email check(email like '%_@_%._%')  --https://www.w3schools.com/sql/sql_check.asp
+CREATE TABLE Utilizador(
+	email VARCHAR(100) UNIQUE NOT NULL,
+	password VARCHAR(64) NOT NULL,
+	PRIMARY KEY(email),						   			    --https://www.w3schools.com/sql/sql_primarykey.ASP
+	CONSTRAINT validate_email check(email like '%_@_%._%')  --https://www.w3schools.com/sql/sql_check.asp
 );
 
-create table Utilizador_Qualificado(
-	email varchar(100) primary key not null,
+CREATE TABLE Utilizador_Qualificado(
+	email VARCHAR(100) PRIMARY KEY NOT NULL,
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
-create table Utilizador_Regular(
-	email varchar(100) primary key not null,
+CREATE TABLE Utilizador_Regular(
+	email VARCHAR(100) PRIMARY KEY NOT NULL,
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
-create table incidencia(
-	anomalia_id serial not null primary key unique,
-	item_id int not null,
-	email varchar(100) not null,
+CREATE TABLE incidencia(
+	anomalia_id SERIAL NOT NULL PRIMARY KEY UNIQUE,
+	item_id int NOT NULL,
+	email VARCHAR(100) NOT NULL,
 	FOREIGN KEY (anomalia_id) REFERENCES Anomalia(id),
 	FOREIGN KEY (item_id) REFERENCES Item(id),
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
-create table proposta_de_correcao(
-	email varchar(100) not null,
-	nro serial not null,
-	data_hora TIMESTAMP not null DEFAULT current_timestamp,
-	texto varchar(500) not null,
+CREATE TABLE proposta_de_correcao(
+	email VARCHAR(100) NOT NULL,
+	nro SERIAL NOT NULL,
+	data_hora TIMESTAMP NOT NULL DEFAULT current_timestamp,
+	texto VARCHAR(500) NOT NULL,
 	PRIMARY KEY(email, nro),
-	constraint nro check(nro>0),
+	CONSTRAINT nro check(nro>0),
 	FOREIGN KEY (email) REFERENCES Utilizador_Qualificado(email)
 );
 
-create table correcao(
-	email varchar(100) not null,
-	nro int not null,
-	anomalia_id int not null,
-    unique(nro,email),
+CREATE TABLE correcao(
+	email VARCHAR(100) NOT NULL,
+	nro int NOT NULL,
+	anomalia_id int NOT NULL UNIQUE,
+    --UNIQUE(nro,email),
+	UNIQUE(anomalia_id),
 	PRIMARY KEY (email,nro,anomalia_id),
 	FOREIGN KEY (email,nro) REFERENCES proposta_de_correcao(email,nro),
     FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id)

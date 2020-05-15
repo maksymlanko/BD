@@ -25,6 +25,7 @@ $nro='000';
 $aid='';
 $exists=0;
 $disInc='';
+$disAno='disabled';
 try{
     if(empty($_GET)){
         $func=0;
@@ -50,6 +51,7 @@ try{
     elseif ($func==2) {
         $header = "Editar ";
         $disInc="disabled";
+        $disAno='';
         $email = $_REQUEST['email'];
         $nro = $_REQUEST['nro'];
         $aid = $_REQUEST['aid'];
@@ -175,7 +177,9 @@ catch (PDOException $e) {
 
 
     <p>Propostas de correção:
-        <select id="proposta" name="proposta" required>
+        <input type="hidden" name="email" value="<?=$email?>"/>
+        <input type="hidden" name="nro" value="<?=$nro?>"/>
+        <select <?php echo $disInc; ?> id="proposta" name="proposta" required>
             <option disabled selected value> -- select an option -- </option>
             <?php
                 $sql='SELECT * FROM proposta_de_correcao;';
@@ -187,7 +191,7 @@ catch (PDOException $e) {
             ?>
         </select>
     </p>
-    <textarea disabled id="propostaText" name="propostaText" cols="40" rows="5" value=""></textarea>
+    <input <?php echo $disAno; ?> id="propostaText" name="propostaText" value="<?php echo $texto; ?>"/>
 
 
     <p><input type="reset"><input type="submit" value="Submit"/></p>

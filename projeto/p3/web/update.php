@@ -110,8 +110,8 @@ try{
             }
             if($check==0){
                 $error = 'Email ou Password incorrectos';
-
-            }else{
+            }
+            else{
                 //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
                 $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
                 $result = $db->prepare($sql);
@@ -168,18 +168,52 @@ try{
             $fields='email, nro, data_hora, texto';
             $values=':email, :nro, :data_hora, :texto';
             $email=$_REQUEST['email'];
+            $mail=$_REQUEST['mail'];
             $texto=$_REQUEST['texto'];
             $nro=$_REQUEST['nro'];
-            $sql = "UPDATE proposta_de_correcao SET data_hora=now(), texto=:texto WHERE email=:email and nro=:nro;";      
+            $password=$_REQUEST['password'];
+            $sql = "SELECT password FROM utilizador_qualificado NATURAL JOIN utilizador WHERE email=:email;";
+            $result = $db->prepare($sql);
+            $result->execute([':email' => $email]);
+            $check=0;
+            foreach($result as $row){
+                if($row['password']==$password){
+                    $check=1;
+                }
+                break;
+            }
+            if($check==0){
+                $error = 'Email ou Password incorrectos';
+            }
+            else{
+                $sql = "UPDATE proposta_de_correcao SET data_hora=now(), texto=:texto WHERE email=:email and nro=:nro;";
+                $result = $db->prepare($sql);
+                $result->execute([':email' => $mail, ':nro' => $nro, ':texto' => $texto]);
+                $db = null;
+                header('Location: index.php');
+            }
+        }
+        elseif($table=="correcao"){
+            $fields='email, nro, data_hora, texto';
+            $values=':email, :nro, :data_hora, :texto';
+            $texto=$_POST['propostaText'];
+
+            $email=$_POST['email'];
+            $nro=$_POST['nro'];
+            
+            $sql = "UPDATE proposta_de_correcao SET data_hora=now(), texto=:texto WHERE email=:email and nro=:nro;";
+
             $result = $db->prepare($sql);
             $result->execute([':email' => $email, ':nro' => $nro, ':texto' => $texto]);
             $db = null;
             header('Location: index.php');
+            
         }
+
     }
 }
 catch (PDOException $e){
-    echo $e;
+    echo $e->getMessage();
     exit();
 }
 ?>

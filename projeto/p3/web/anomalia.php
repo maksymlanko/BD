@@ -120,7 +120,13 @@ try{
 
 }
 catch (PDOException $e) {
-    echo $e;
+    error_log($e);
+    echo '<h3 class="error">Não é possivel remover esta Anomalia dado que está referenciado por uma Incidência</h3>';
+    echo "<a href='index.php'>Pagina Inicial</a>";
+    header('Refresh: 10; URL=index.php');
+    exit();
+} catch (PDOException $e) {
+    error_log($e);
     exit();
 }
 ?>
