@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Anomalias por Coordenadas</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body> 
 
@@ -18,5 +20,6 @@
 
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
+<?php include "footer.php" ?>
 </body>
 </html>

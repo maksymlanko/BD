@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>App BD</title>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body> 
@@ -30,6 +31,6 @@ catch (PDOException $e) {
 
 <img src="<?php echo $img; ?>"/>
 
-
+<?php include "footer.php" ?>
 </body>
 </html>

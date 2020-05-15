@@ -4,12 +4,14 @@
     <meta charset="utf-8" />
     <title>Item</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body> 
 <?php include 'connect.php'; ?><!--DB connection-->
 <?php
 try{
+    $id=0;
     if(empty($_GET)){
         $func=0;
     }
@@ -41,10 +43,6 @@ catch (PDOException $e) {
 
 <script>
 $( document ).ready(function() {
-    var v = $('#local').val();
-    var coors = v.split(';');
-    $('#lat').val(coors[0]);
-    $('#lon').val(coors[1]); 
     $('select[name="local"]').change(function(){
         var v = $(this).val();
         var coors = v.split(';');
@@ -80,6 +78,6 @@ $( document ).ready(function() {
     
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
-
+<?php include "footer.php" ?>
 </body>
 </html>

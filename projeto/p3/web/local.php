@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Local</title>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body> 
 <?php include 'connect.php'; ?><!--DB connection-->
@@ -30,7 +30,21 @@ try{
     }
 }
 catch (PDOException $e) {
-    $e;
+    error_log($e);
+    echo '<h3 class="error">Não é possivel remover este local publico dado que ainda têm itens atribuidos:</h3>';
+    $sql = "SELECT id, descricao FROM item WHERE latitude=:lat and longitude=:lon;";
+    $result = $db->prepare($sql);
+    $result->execute([':lat' => $lat, ':lon' =>  $lon]);
+    echo '<center><table><tr><th>ID</th><th>Descricao</th></tr>';
+    foreach($result as $row){
+        echo "<tr><td>".$row['id']."</td><td>".$row['descricao']."</td></tr>";
+    }
+    echo "</table></center>";
+    echo "<a href='index.html'>Pagina Inicial</a>";
+    header('Refresh: 10; URL=index.php');
+    exit();
+} catch (PDOException $e) {
+    error_log($e);
     exit();
 }
 ?>
@@ -46,6 +60,6 @@ catch (PDOException $e) {
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
 
-
+<?php include "footer.php" ?>
 </body>
 </html>

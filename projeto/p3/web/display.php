@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Anomalias entre 2 locais</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body> 
 <?php include 'connect.php'; ?>
@@ -95,6 +97,6 @@ catch (PDOException $e) {
 </table>
 
 <a href="index.php">Voltar ao ecrã inicial</a>
-
+<?php include "footer.php" ?>
 </body>
 </html>

@@ -1,0 +1,51 @@
+#title{
+    text-align: center;
+}
+.error{
+    color: red;
+    text-align: center;
+}
+body {
+    /*background-color: #2c2c2c;*/
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+.PrimaryKey{
+    /*color: red;*/
+}
+table{
+    border: 1px solid orange;
+    margin-bottom: 20px;
+}
+th, td{
+    border: 1px solid orange;
+}
+a:visited{
+    color:blue;
+}
+a{
+    color:blue;
+}
+.new{
+    margin-top: 5px;
+    text-align: center;
+}
+.new a{
+    text-decoration: none;
+}
+.new a:hover{
+    color:red;
+}
+.alinea{
+    margin:10px;
+    text-decoration: none;
+    font-size: 30px;
+    color: green;
+}
+.alinea:visited{
+    color: green;
+}
+.alinea:hover{
+    text-decoration: none;
+    font-size: 30px;
+    color: red;
+}

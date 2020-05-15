@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>Anomalia</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 <!--debug-->
@@ -163,5 +165,6 @@ $(document).ready(function(){
 </form>
 
 <?php $db = null; ?>
+<?php include "footer.php" ?>
 </body>
 </html>

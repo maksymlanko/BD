@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Anomalias por Local</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body> 
 <?php include 'connect.php'; ?>
@@ -42,5 +44,6 @@ catch (PDOException $e) {
     <p><input type="reset"><input type="submit" value="Submit"/></p>
 </form>
 <?php $db = null; ?>
+<?php include "footer.php" ?>
 </body>
 </html>

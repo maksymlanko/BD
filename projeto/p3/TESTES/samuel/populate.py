@@ -135,18 +135,19 @@ r.close()
 conn = psycopg2.connect(host="localhost",database="proj3", user="postgres", password="")
 cur = conn.cursor()
 
-r = open("projeto/p3/TESTES/samuel/populate.sql", 'r')
+#r = open("projeto/p3/TESTES/samuel/populate.sql", 'r')
+r = open("projeto/p3/populate.sql", 'r')
 
 for i in r.readlines():
-    try:
-        cur.execute(i)
-        conn.commit()
-    except:
-        cur.close()
-        conn.close()
-        r.close()
-        print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
-        exit()
+    #try:
+    cur.execute(i)
+    conn.commit()
+#    except:
+#        cur.close()
+#        conn.close()
+#        r.close()
+#        print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
+#        exit()
 cur.close()
 conn.close()
 r.close()

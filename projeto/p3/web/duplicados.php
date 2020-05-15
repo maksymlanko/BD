@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Itens Duplicados</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 <!--debug-->
@@ -65,5 +67,6 @@
 </form>
 
 <?php $db = null; ?>
+<?php include "footer.php" ?>
 </body>
 </html>

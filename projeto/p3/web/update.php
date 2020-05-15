@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Updater</title>
+    <link rel="stylesheet" href="style.css">
+
 
 </head>
 <body> 
@@ -20,6 +22,7 @@ try{
     $table = $_REQUEST['table'];
     $fields='';
     $values='';
+    $error='';
     if($func==0){
         if($table=="anomalia"){
             $fields='zona, imagem, lingua, descricao, tem_anomalia_traducao';
@@ -106,18 +109,17 @@ try{
                 break;
             }
             if($check==0){
+                $error = 'Email ou Password incorrectos';
+
+            }else{
+                //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
+                $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
+                $result = $db->prepare($sql);
+                $ts='now()';
+                $result->execute([':email' => $email,':ts'=>$ts ,':texto' => $texto]);
                 $db = null;
-                echo("<center><h3>Email ou Password incorrectos</h3></center>");
-                header('Refresh: 10; URL=index.php');
-                exit();
+                header('Location: index.php');
             }
-            //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
-            $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
-            $result = $db->prepare($sql);
-            $ts='now()';
-            $result->execute([':email' => $email,':ts'=>$ts ,':texto' => $texto]);
-            $db = null;
-            header('Location: index.php');
         }
         elseif($table=="correcao"){
             $fields='anomalia_id, email, nro';
@@ -150,16 +152,15 @@ try{
             $id1=$_POST['item1'];
             $id2=$_POST['item2'];
             if($id1>$id2){
-                $db=null;
-                echo("<center><h3>ID Item 1 deve ser menor que ID Item 2</h3></center>");
-                header('Refresh: 10; URL=index.php');
-                exit();
+                $error='ID Item 1 deve ser menor que ID Item 2';
             }
-            $sql = "INSERT INTO duplicado ($fields)VALUES($values);";
-            $result = $db->prepare($sql);
-            $result->execute([':id1' => $id1, ':id2' => $id2]);
-            $db = null;
-            header('Location: index.php');
+            else{
+                $sql = "INSERT INTO duplicado ($fields)VALUES($values);";
+                $result = $db->prepare($sql);
+                $result->execute([':id1' => $id1, ':id2' => $id2]);
+                $db = null;
+                header('Location: index.php');
+            }
         }
     }
     elseif ($func==2) {
@@ -182,8 +183,9 @@ catch (PDOException $e){
     exit();
 }
 ?>
-
-
 <?php $db = null; ?>
+<h3 class="error"><?php echo $error;?></h3>
+<?php header('Refresh: 10; URL=index.php'); ?>
+<?php include "footer.php" ?>
 </body>
 </html>

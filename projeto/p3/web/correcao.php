@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>Correção</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
 
 </head>
 <body>
@@ -192,5 +194,6 @@ catch (PDOException $e) {
 </form>
 
 <?php $db = null; ?>
+<?php include "footer.php" ?>
 </body>
 </html>

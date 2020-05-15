@@ -3,12 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <title>App BD</title>
+    <link rel="stylesheet" href="style.css">
 
-    <style>
-        body {
-            /*background-color:*/
-            font-family: "Arial Black", Gadget, sans-serif;
-        }
+    <!--<style>
+        
         .debuggerTable{
             border: 1px solid orange;
             margin-bottom: 20px;
@@ -19,41 +17,8 @@
         .debuggerTable tr td{
             border: 1px solid orange;
         }
-        .PrimaryKey{
-            /*color: red;*/
-        }
-        table{
-            border: 1px solid orange;
-            margin-bottom: 20px;
-        }
-        th, td{
-            border: 1px solid orange;
-        }
-        .PrimaryKey{
-            /*color: red;*/
-        }
-        .new{
-            margin-top: 5px;
-            text-align: center;
-        }
-        .new a{
-            text-decoration: none;
-        }
-        .new a:hover{
-            color:red;
-        }
-        .alinea{
-            margin:10px;
-            text-decoration: none;
-            font-size: 30px;
-            color: green;
-        }
-        .alinea:hover{
-            text-decoration: none;
-            font-size: 30px;
-            color: red;
-        }
-    </style>
+        
+    </style>-->
 </head>
 <body> 
 <?php include 'connect.php'; #DB connection ?>
@@ -72,7 +37,7 @@
     #       1 delete
     #       2 edit
 ?>
-
+<h1 id="title">App 3ª parte projeto BD</h1>
 <table id="local_publico">
     <tr><th colspan="2">Local Público</th></tr>
     <tr><th class='PrimaryKey'>Latitude, Longitude</th><th>Nome</th></tr>
@@ -113,7 +78,7 @@
 </table>
 <table class="debuggerTable" id="anomalia">
     <tr><th colspan="8">Anomalias</th></tr>
-    <tr><th class='PrimaryKey'>id</th><th>Zona</th><th>Imagem</th><th>Língua</th><th>TimeStamp</th><th>Descrição</th><th>Segunda Língua</th><th>Segunda Zona</th></tr>
+    <tr><th class='PrimaryKey'>id</th><th>Descrição</th><th>Imagem</th><th>TimeStamp</th><th>Língua</th><th>Zona</th><th>Segunda Língua</th><th>Segunda Zona</th></tr>
     <?php 
         $sql = "SELECT anomalia.id, zona,imagem,lingua,ts,descricao,zona2,lingua2 FROM anomalia LEFT JOIN anomalia_traducao ON anomalia_traducao.id=anomalia.id;";
         $result = $db->prepare($sql);
@@ -121,11 +86,11 @@
         foreach($result as $row){
             echo("<tr>"); 
             echo("<td>".$row['id']."</td>");
-            echo("<td>".$row['zona']."</td>");
-            echo("<td><a href='viewImage.php?id=".$row['id']."'>Open Image</a></td>");
-            echo("<td>".$row['lingua']."</td>");
-            echo("<td>".substr($row['ts'], 0, 19)."</td>");
             echo("<td>".$row['descricao']."</td>");
+            echo("<td><a href='viewImage.php?id=".$row['id']."'>Open Image</a></td>");
+            echo("<td>".substr($row['ts'], 0, 19)."</td>");
+            echo("<td>".$row['lingua']."</td>");
+            echo("<td>".$row['zona']."</td>");
             echo("<td>".$row['lingua2']."</td>");
             echo("<td>".$row['zona2']."</td>");
             echo("<td><a href='anomalia.php?func=1&id=".$row['id']."'>Delete Entry</a></td>");

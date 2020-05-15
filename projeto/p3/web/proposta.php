@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Proposta de Correção</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 <!--debug-->
@@ -85,5 +87,6 @@ catch (PDOException $e) {
 </form>
 
 <?php $db = null; ?>
+<?php include "footer.php" ?>
 </body>
 </html>
