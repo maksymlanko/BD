@@ -1,13 +1,19 @@
 import random, string, psycopg2
 
-numUsers=0
+numUsers=20
 numLocais=30
 numItens=100
 numAnom=30
 numIncidencias=15
-anomCutter=1
-insert = "INSERT INTO {} ({}) VALUES({});\n"
 
+connection=False    #Fazer upload para base de dados?
+uploadFile=False    #usar ficheiro acabado de criar para  upload
+save_dir='projeto/p3/TESTES/samuel/populate.sql'    #ficheiro acabado de criar
+upload_dir='projeto/p3/populate.sql'                #ficheiro para fazer upload se  uploadFile = False 
+
+
+
+insert = "INSERT INTO {} ({}) VALUES({});\n"
 tabelas={
     "local_publico": [],
     "item": [],
@@ -21,6 +27,7 @@ tabelas={
     "proposta_de_correcao": [],
     "correcao": []
 }
+anomCutter=1
 
 def user(tup, qual=0):
     tmp = random.randint(0,3)
@@ -112,7 +119,7 @@ def hardCodeMe():
     for i in strings:
         r.write(i)
 
-r = open("projeto/p3/TESTES/samuel/populate.sql", 'w')
+r = open(save_dir, 'w')
 hardCodeMe()
 for i in range(numUsers):
     r.write(user((stringGen(email=True),stringGen())))
@@ -132,22 +139,25 @@ for i in range(numIncidencias):
 r.flush()
 r.close()
 
-conn = psycopg2.connect(host="localhost",database="proj3", user="postgres", password="")
-cur = conn.cursor()
+if(connection==True):
+    conn = psycopg2.connect(host="localhost",database="proj3", user="postgres", password="")
+    cur = conn.cursor()
 
-#r = open("projeto/p3/TESTES/samuel/populate.sql", 'r')
-r = open("projeto/p3/populate.sql", 'r')
+    if(uploadFile):
+        r = open(save_dir, 'r')
+    else:
+        r = open(upload_dir, 'r')
 
-for i in r.readlines():
-    #try:
-    cur.execute(i)
-    conn.commit()
-#    except:
-#        cur.close()
-#        conn.close()
-#        r.close()
-#        print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
-#        exit()
-cur.close()
-conn.close()
-r.close()
+    for i in r.readlines():
+        try:
+            cur.execute(i)
+            conn.commit()
+        except:
+            cur.close()
+            conn.close()
+            r.close()
+            print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
+            exit()
+    cur.close()
+    conn.close()
+    r.close()
