@@ -39,7 +39,7 @@ CREATE TABLE duplicado(
 	item1 int NOT NULL,
 	item2 int NOT NULL,
 	PRIMARY KEY(item1,item2),
-    FOREIGN KEY (item1) REFERENCES item(id),
+	FOREIGN KEY (item1) REFERENCES item(id),
 	FOREIGN KEY (item2) REFERENCES item(id),
 	CONSTRAINT ordem check(item1 < item2)
 );
@@ -47,8 +47,8 @@ CREATE TABLE duplicado(
 CREATE TABLE Utilizador(
 	email VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(64) NOT NULL,
-	PRIMARY KEY(email),						   			    --https://www.w3schools.com/sql/sql_primarykey.ASP
-	CONSTRAINT validate_email check(email like '%_@_%._%')  --https://www.w3schools.com/sql/sql_check.asp
+	PRIMARY KEY(email),										--https://www.w3schools.com/sql/sql_primarykey.ASP
+	CONSTRAINT validate_email check(email like '%_@_%._%')	--https://www.w3schools.com/sql/sql_check.asp
 );
 
 CREATE TABLE Utilizador_Qualificado(
@@ -63,7 +63,7 @@ CREATE TABLE Utilizador_Regular(
 
 CREATE TABLE incidencia(
 	anomalia_id SERIAL NOT NULL PRIMARY KEY UNIQUE,
-	item_id int NOT NULL,
+	item_id INT NOT NULL,
 	email VARCHAR(100) NOT NULL,
 	FOREIGN KEY (anomalia_id) REFERENCES Anomalia(id),
 	FOREIGN KEY (item_id) REFERENCES Item(id),
@@ -72,7 +72,7 @@ CREATE TABLE incidencia(
 
 CREATE TABLE proposta_de_correcao(
 	email VARCHAR(100) NOT NULL,
-	nro SERIAL NOT NULL,
+	nro INT NOT NULL,
 	data_hora TIMESTAMP NOT NULL DEFAULT current_timestamp,
 	texto VARCHAR(500) NOT NULL,
 	PRIMARY KEY(email, nro),
@@ -84,9 +84,8 @@ CREATE TABLE correcao(
 	email VARCHAR(100) NOT NULL,
 	nro int NOT NULL,
 	anomalia_id int NOT NULL UNIQUE,
-    --UNIQUE(nro,email),
 	UNIQUE(anomalia_id),
 	PRIMARY KEY (email,nro,anomalia_id),
 	FOREIGN KEY (email,nro) REFERENCES proposta_de_correcao(email,nro),
-    FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id)
+	FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id)
 );

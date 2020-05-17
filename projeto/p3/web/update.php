@@ -93,8 +93,6 @@ try{
             header('Location: index.php');
         }
         elseif($table=="proposta"){
-            $fields='email, data_hora, texto';
-            $values=':email, :ts, :texto';
             $email=$_REQUEST['email'];
             $texto=$_REQUEST['texto'];
             $password=$_REQUEST['password'];
@@ -112,11 +110,9 @@ try{
                 $error = 'Email ou Password incorrectos';
             }
             else{
-                //$ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
-                $sql = "INSERT INTO proposta_de_correcao ($fields)VALUES($values);";
+                $sql = "select insert_proposta(:email, :texto);";
                 $result = $db->prepare($sql);
-                $ts='now()';
-                $result->execute([':email' => $email,':ts'=>$ts ,':texto' => $texto]);
+                $result->execute([':email' => $email, ':texto' => $texto]);
                 $db = null;
                 header('Location: index.php');
             }

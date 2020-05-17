@@ -6,7 +6,7 @@ numItens=100
 numAnom=30
 numIncidencias=15
 
-connection=False    #Fazer upload para base de dados?
+connection=True    #Fazer upload para base de dados?
 uploadFile=False    #usar ficheiro acabado de criar para  upload
 save_dir='projeto/p3/TESTES/samuel/populate.sql'    #ficheiro acabado de criar
 upload_dir='projeto/p3/populate.sql'                #ficheiro para fazer upload se  uploadFile = False 
@@ -149,15 +149,15 @@ if(connection==True):
         r = open(upload_dir, 'r')
 
     for i in r.readlines():
-        try:
-            cur.execute(i)
-            conn.commit()
-        except:
-            cur.close()
-            conn.close()
-            r.close()
-            print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
-            exit()
+        #try:
+        cur.execute(i)
+        conn.commit()
+        #except:
+        #    cur.close()
+        #    conn.close()
+        #    r.close()
+        #    print("TENS DE APAGAR OS DADOS TODOS DA BASE DE DADOS ANTES DE IMPORTAR NOVOS DADOS")
+        #    exit()
     cur.close()
     conn.close()
     r.close()
