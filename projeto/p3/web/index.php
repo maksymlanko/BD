@@ -143,8 +143,8 @@
 </table>
 
 <table class="debuggerTable" id="utilizador">
-    <tr><th colspan="2">Utilizadores</th></tr>
-    <tr><th class='PrimaryKey'>Email</th><th>Qualificado</th></tr>
+    <tr><th colspan="3">Utilizadores</th></tr>
+    <tr><th class='PrimaryKey'>Email</th><th>Password</th><th>Qualificado</th></tr>
     <?php 
         $sql = "SELECT * FROM Utilizador;";
         $result = $db->prepare($sql);
@@ -155,7 +155,7 @@
         foreach($result as $row){
             echo("<tr>"); 
             echo("<td>".$row['email']."</td>");
-            #echo("<td>".$row['password']."</td>");    
+            echo("<td>".$row['password']."</td>");    
             
             $result2->execute([':email' => $row['email']]);
             foreach($result2 as $row){

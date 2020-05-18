@@ -18,3 +18,4 @@ $$
 
     return next_nro;
 end;
+$$ language plpgsql;
