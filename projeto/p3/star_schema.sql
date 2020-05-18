@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS d_Utilizador;
 create table d_Utilizador(
 	id_Utilizador SERIAL PRIMARY KEY NOT NULL UNIQUE, 
 	tipo varchar(100),
-	email varchar(100) NOT NULL
+	email varchar(60) NOT NULL
 );
 
 DROP TABLE IF EXISTS d_tempo;
@@ -19,7 +19,7 @@ create table d_tempo(
 DROP TABLE IF EXISTS d_local;
 create table d_local(
 	id_local SERIAL PRIMARY KEY NOT NULL UNIQUE,
-	nome VARCHAR(255),
+	nome VARCHAR(50),
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6)
 );
