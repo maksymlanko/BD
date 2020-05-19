@@ -20,12 +20,7 @@ create table d_tempo(
 DROP TABLE IF EXISTS d_local;
 create table d_local(
 	id_local SERIAL PRIMARY KEY NOT NULL UNIQUE,
-<<<<<<< HEAD
-	id_local_natural int,
-	nome VARCHAR(255),
-=======
 	nome VARCHAR(50),
->>>>>>> 04e59a95a088f5aeb597ccadd1a0413bc22e6872
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6)
 );
