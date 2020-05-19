@@ -97,10 +97,10 @@
         <tr><th>Descrição</th><th>Lingua</th><th>Zona</th><th>Lingua 2</th><th>Zona 2</th><th>Timestamp</th></tr>
         <tr>
             <td><input disabled value="" id="descricao"/></td>
-            <td><input disabled value="" id="lingua"/></td>
-            <td><input disabled value="" id="zona"/></td>
-            <td><input disabled value="" id="lingua2"/></td>
-            <td><input disabled value="" id="zona2"/></td>
+            <td><input disabled value="" id="lingua" size="10"/></td>
+            <td><input disabled value="" id="zona" size="10"/></td>
+            <td><input disabled value="" id="lingua2" size="10"/></td>
+            <td><input disabled value="" id="zona2" size="10"/></td>
             <td><input disabled value="" id="ts"/></td>
         </tr>
     </table>

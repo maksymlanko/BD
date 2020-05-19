@@ -1,7 +1,7 @@
 CREATE TABLE local_publico(
 	latitude DECIMAL(8,6) NOT NULL UNIQUE,
 	longitude DECIMAL(9,6) NOT NULL UNIQUE,
-	nome VARCHAR(255) NOT NULL,
+	nome VARCHAR(50) NOT NULL,
 	PRIMARY KEY(latitude, longitude),
 	CONSTRAINT latitude CHECK(latitude between -90.000000 and +90.000000),
 	CONSTRAINT longitude CHECK(longitude between -180.000000 and +180.000000)
@@ -10,7 +10,7 @@ CREATE TABLE local_publico(
 CREATE TABLE item(
 	id SERIAL PRIMARY KEY UNIQUE,
 	descricao VARCHAR(40),
-	localizacao VARCHAR(255),
+	localizacao VARCHAR(100),
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6),
 	FOREIGN KEY (latitude) REFERENCES local_publico(latitude),
@@ -45,33 +45,33 @@ CREATE TABLE duplicado(
 );
 
 CREATE TABLE Utilizador(
-	email VARCHAR(100) UNIQUE NOT NULL,
+	email VARCHAR(60) UNIQUE NOT NULL,
 	password VARCHAR(64) NOT NULL,
 	PRIMARY KEY(email),										--https://www.w3schools.com/sql/sql_primarykey.ASP
 	CONSTRAINT validate_email check(email like '%_@_%._%')	--https://www.w3schools.com/sql/sql_check.asp
 );
 
 CREATE TABLE Utilizador_Qualificado(
-	email VARCHAR(100) PRIMARY KEY NOT NULL,
+	email VARCHAR(60) PRIMARY KEY NOT NULL,
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
 CREATE TABLE Utilizador_Regular(
-	email VARCHAR(100) PRIMARY KEY NOT NULL,
+	email VARCHAR(60) PRIMARY KEY NOT NULL,
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
 CREATE TABLE incidencia(
 	anomalia_id SERIAL NOT NULL PRIMARY KEY UNIQUE,
 	item_id INT NOT NULL,
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(60) NOT NULL,
 	FOREIGN KEY (anomalia_id) REFERENCES Anomalia(id),
 	FOREIGN KEY (item_id) REFERENCES Item(id),
 	FOREIGN KEY (email) REFERENCES Utilizador(email)
 );
 
 CREATE TABLE proposta_de_correcao(
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(60) NOT NULL,
 	nro INT NOT NULL,
 	data_hora TIMESTAMP NOT NULL DEFAULT current_timestamp,
 	texto VARCHAR(500) NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE proposta_de_correcao(
 );
 
 CREATE TABLE correcao(
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(60) NOT NULL,
 	nro int NOT NULL,
 	anomalia_id int NOT NULL UNIQUE,
 	UNIQUE(anomalia_id),

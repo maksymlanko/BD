@@ -1,4 +1,4 @@
-create or replace function insert_proposta(mail varchar(100), fix varchar(500))
+create or replace function insert_proposta(mail varchar(60), fix varchar(500))
 	returns int as 
 $$
 	declare next_nro int;
@@ -18,3 +18,4 @@ $$
 
     return next_nro;
 end;
+$$ language plpgsql;
