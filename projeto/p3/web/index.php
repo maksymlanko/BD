@@ -54,7 +54,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="2" class="new"><a href='local.php'>Incerir novo local</a></td></tr>
+    <tr><td colspan="2" class="new"><a href='local.php'>inserir novo local</a></td></tr>
 </table>
 <table class="debuggerTable" id="item">
     <tr><th colspan="4">Item</th></tr>
@@ -74,7 +74,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="4" class="new"><a href='item.php'>Incerir novo Item</a></td></tr>
+    <tr><td colspan="4" class="new"><a href='item.php'>inserir novo Item</a></td></tr>
 </table>
 <table class="debuggerTable" id="anomalia">
     <tr><th colspan="8">Anomalias</th></tr>
@@ -98,7 +98,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="8" class="new"><a href='anomalia.php'>Incerir nova Anomalia</a></td></tr>
+    <tr><td colspan="8" class="new"><a href='anomalia.php'>inserir nova Anomalia</a></td></tr>
 </table>
 <table class="debuggerTable" id="correcao">
     <tr><th colspan="3">Correção</th></tr>
@@ -118,7 +118,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="3" class="new"><a href='correcao.php'>Incerir nova Correção</a></td></tr>
+    <tr><td colspan="3" class="new"><a href='correcao.php'>inserir nova Correção</a></td></tr>
 </table>
 <table class="debuggerTable" id="proposta_de_correcao">
     <tr><th colspan="4">Propósta de Correção</th></tr>
@@ -139,7 +139,7 @@
         }
     ?>
     <tr></tr>
-    <tr><td colspan="4" class="new"><a href='proposta.php'>Incerir nova Proposta de Correção</a></td></tr>
+    <tr><td colspan="4" class="new"><a href='proposta.php'>inserir nova Proposta de Correção</a></td></tr>
 </table>
 
 <table class="debuggerTable" id="utilizador">
