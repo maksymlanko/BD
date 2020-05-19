@@ -1,15 +1,14 @@
 
 DROP TABLE IF EXISTS d_Utilizador;
 create table d_Utilizador(
-	id_Utilizador SERIAL PRIMARY KEY NOT NULL UNIQUE,
-	id_Utilizador_natural int, 
-	tipo varchar(100),
-	email varchar(60) NOT NULL
+	id_Utilizador SERIAL PRIMARY KEY UNIQUE,
+	tipo varchar(30),
+	email varchar(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS d_tempo;
 create table d_tempo(
-	id_tempo SERIAL PRIMARY KEY NOT NULL UNIQUE,
+	id_tempo SERIAL PRIMARY KEY UNIQUE,
 	dia int, 
 	dia_da_semana int, 
 	mes int, 
@@ -19,21 +18,15 @@ create table d_tempo(
 
 DROP TABLE IF EXISTS d_local;
 create table d_local(
-	id_local SERIAL PRIMARY KEY NOT NULL UNIQUE,
-<<<<<<< HEAD
-	id_local_natural int,
+	id_local SERIAL PRIMARY KEY UNIQUE,
 	nome VARCHAR(255),
-=======
-	nome VARCHAR(50),
->>>>>>> 04e59a95a088f5aeb597ccadd1a0413bc22e6872
 	latitude DECIMAL(8,6),
 	longitude DECIMAL(9,6)
 );
 
 DROP TABLE IF EXISTS d_lingua;
 create table d_lingua(
-	id_lingua SERIAL PRIMARY KEY NOT NULL UNIQUE, 
-	id_lingua_natural int,
+	id_lingua SERIAL PRIMARY KEY UNIQUE, 
 	lingua VARCHAR(30)
 );
 
@@ -46,7 +39,6 @@ create table f_anomalia(
 	id_lingua int, 
 	tipo_anomalia varchar(50), 
 	com_proposta boolean,
-	PRIMARY KEY(id_Utilizador, id_tempo, id_local, id_lingua),
 	FOREIGN KEY(id_Utilizador) REFERENCES d_Utilizador(id_Utilizador),
 	FOREIGN KEY(id_tempo) REFERENCES d_tempo(id_tempo),
 	FOREIGN KEY(id_local) REFERENCES d_local(id_local),
