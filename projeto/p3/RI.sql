@@ -1,8 +1,13 @@
+DROP TRIGGER check_zona
+DROP TRIGGER check_utilizador_r
+DROP TRIGGER check_utilizador_q
+DROP TRIGGER check_utilizador
+
 create or replace function insert_proposta(mail varchar(60), fix varchar(500))
 	returns int as 
 $$
 	declare next_nro int;
- begin
+begin
  	select max_nro+1 into next_nro
 	from ( 
 		select max(nro) as max_nro, email
@@ -33,7 +38,7 @@ $$
 	declare zona2y1 int;
 	declare zona2x2 int;
 	declare zona2y2 int;
- begin
+begin
  	-- a zona da anomalia traducao nao se pode sobrepor a zona da anomalia corresponde
  	select zona into zona1
 	from ( 
@@ -59,7 +64,8 @@ $$
 	SELECT split_part(zona2, ',', 2) into zona2y1;
 	SELECT split_part(zona2, ',', 3) into zona2x2;
 	SELECT split_part(zona2, ',', 4) into zona2y2;
-	
+
+
 	if (not((zona2x1 BETWEEN zona1x1 and zona1x2 AND zona2y1 BETWEEN zona1y1 and zona1y2)
 		OR((zona2x2 BETWEEN zona1x1 and zona1x2 AND zona2y2 BETWEEN zona1y1 and zona1y2))) 
 		)THEN
@@ -74,7 +80,7 @@ create or replace function check_utilizador()
 	returns TRIGGER as 
 $$
 	
- begin
+begin
 	if exists(
 		select email
 		from ( 
@@ -102,7 +108,7 @@ create or replace function check_utilizador_e()
 	returns TRIGGER as 
 $$
 	
- begin
+begin
 	if exists(
 		select email
 		from ( 
@@ -139,6 +145,6 @@ CREATE TRIGGER check_utilizador_q
 BEFORE INSERT ON utilizador_qualificado
 FOR EACH ROW EXECUTE PROCEDURE check_utilizador();
 
-CREATE TRIGGER check_utilizador
-BEFORE INSERT ON utilizador
-FOR EACH ROW EXECUTE PROCEDURE check_utilizador_e();
+--CREATE TRIGGER check_utilizador
+--BEFORE INSERT ON utilizador
+--FOR EACH ROW EXECUTE PROCEDURE check_utilizador_e();

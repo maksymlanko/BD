@@ -75,7 +75,7 @@ CREATE TABLE Utilizador_Regular(
 );
 
 CREATE TABLE incidencia(
-	anomalia_id SERIAL NOT NULL PRIMARY KEY UNIQUE,
+	anomalia_id INT NOT NULL PRIMARY KEY UNIQUE,
 	item_id INT NOT NULL,
 	email VARCHAR(60) NOT NULL,
 	FOREIGN KEY (anomalia_id) REFERENCES Anomalia(id),
