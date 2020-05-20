@@ -44,6 +44,7 @@ HAVING count(*) <= ALL (
 	);
 */
 
+--2.1 NOTA: podem haver varios itens no mesmo local
 -- 2.1: 
 /*
 SELECT l
@@ -58,6 +59,22 @@ HAVING COUNT(*) <= ALL (
 	GROUP BY incidencia.item_id
 	);
 */
+
+--2.1 [SAMUEL] not tested
+SELECT l
+FROM incidencia inc
+	JOIN anomalia anom ON inc.anomalia_id = anom.id
+	JOIN item it ON inc.item_id = it.id
+	NATURAL JOIN local_publico l
+GROUP BY l
+HAVING COUNT(*) <= ALL (
+	SELECT COUNT(*) as cnt
+    FROM incidencia inc
+	JOIN anomalia anom ON inc.anomalia_id = anom.id
+	JOIN item it ON inc.item_id = it.id
+	NATURAL JOIN local_publico l
+    GROUP BY l
+);
 
 -- nao sei ta mal o de cima pq isto?
 /*
