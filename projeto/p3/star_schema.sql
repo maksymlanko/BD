@@ -2,8 +2,8 @@
 DROP TABLE IF EXISTS d_Utilizador;
 create table d_Utilizador(
 	id_Utilizador SERIAL PRIMARY KEY UNIQUE,
-	tipo varchar(30),
-	email varchar(100) NOT NULL
+	tipo varchar(100),
+	email varchar(60) NOT NULL
 );
 
 DROP TABLE IF EXISTS d_tempo;
@@ -26,6 +26,7 @@ create table d_local(
 
 DROP TABLE IF EXISTS d_lingua;
 create table d_lingua(
+<<<<<<< HEAD
 	id_lingua SERIAL PRIMARY KEY UNIQUE, 
 	lingua VARCHAR(30)
 );
