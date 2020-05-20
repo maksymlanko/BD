@@ -28,7 +28,7 @@
     $lingua='';
     $ts='';
     $descricao='';
-    $tem_anomaila_traducao='';
+    $tem_anomalia_redacao='';
     $zona2='';
     $lingua2='';
     $inFalse='';
@@ -50,18 +50,18 @@ try{
     else{
         $func = $_REQUEST['func'];
     }
-    $inTrue='';
-    $inFalse='checked';
+    $inTrue='checked';
+    $inFalse='';
 
     if($func==0){
         $header = "Nova ";
     }
     if($func==1){
         $id = $_REQUEST['id'];
-        $sql = "DELETE FROM anomalia WHERE id=:id ;";
+        $sql = "DELETE FROM anomalia_traducao WHERE id=:id ;";
         $result = $db->prepare($sql);
         $result->execute([':id' => $id]);
-        $sql = "DELETE FROM anomalia_traducao WHERE id=:id;";
+        $sql = "DELETE FROM anomalia WHERE id=:id;";
         $result = $db->prepare($sql);
         $result->execute([':id' => $id]);
         $db=null;
@@ -80,7 +80,7 @@ try{
             $lingua=$row['lingua'];
             $ts=$row['ts'];
             $descricao=$row['descricao'];
-            $tem_anomaila_traducao=$row['tem_anomaila_traducao'];        
+            $tem_anomalia_redacao=$row['tem_anomalia_redacao'];        
             break;
         }
         $zona=substr($zona, 1);
@@ -91,9 +91,9 @@ try{
         $ay2=substr($arr[3], 0, -1);
         $ta=substr($ts, 0, 10);
         $tb=substr($ts, 11, 8);
-        if($tem_anomaila_traducao==1){
-            $inFalse='';
-            $inTrue='checked';
+        if($tem_anomalia_redacao==0){
+            $inFalse='checked';
+            $inTrue='';
 
             $sql = "SELECT * FROM anomalia_traducao WHERE id=$id;";
             $result = $db->prepare($sql);
@@ -111,9 +111,9 @@ try{
             $by2=substr($arr[3], 0, -1);
         }
         else{
-            $inFalse='checked';
-            $inTrue='';
-            $tem_anomaila_traducao=0;
+            $inFalse='';
+            $inTrue='checked';
+            $tem_anomalia_redacao=1;
         }
 
     }
@@ -136,10 +136,10 @@ catch (PDOException $e) {
 $(document).ready(function(){ 
     $("input[name$='traducao']").click(function() {
         var test = $(this).val();
-        $(".traducao").hide();
-        $(".traducao"+test).show();
-        $("input.in").prop('required',false);
-        $("input.in"+test).prop('required',true);
+        $(".traducao").show();
+        $(".traducao"+test).hide();
+        $("input.in").prop('required',true);
+        $("input.in"+test).prop('required',false);
     }); 
 });
 
@@ -158,12 +158,13 @@ $(document).ready(function(){
     <p style="display: none;">Date: <input value="<?=$ta?>" type="date" name="date"/></p>
     <p style="display: none;">Time: <input value="<?=$tb?>" type="time" name="time"/></p>
     <p>Descricao: <input required value="<?=$descricao?>" type="text" name="descricao"/></p>
-    <p>Anomalia de Traducao: 
+    <p>Anomalia de Redação: 
         <br>
-        <input type="radio" id="false" name="traducao" value="False" <?=$inFalse?>>
-        <label for="False">Não</label><br>
         <input type="radio" id="true" name="traducao" value="True" <?=$inTrue?>>
         <label for="True">Sim</label><br>
+        <input type="radio" id="false" name="traducao" value="False" <?=$inFalse?>>
+        <label for="False">Não</label><br>
+        
     </p>
     <p class="traducaoTrue traducao" style="display: none;">Zona2:  (<input class="inTrue in" value="<?=$bx1?>" type="number" name="bx1" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$by1?>" type="number" name="by1" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$bx2?>" type="number" name="bx2" min="0" max="9999" size="2px"/>,<input class="inTrue in" value="<?=$by2?>" type="number" name="by2" min="0" max="9999" size="2px"/>)</p>
     <p class="traducaoTrue traducao" style="display: none;">Lingua2: <input class="inTrue in" value="<?=$lingua2?>" type="text" name="lingua2" id="lingua2"/></p>

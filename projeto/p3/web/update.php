@@ -25,28 +25,28 @@ try{
     $error='';
     if($func==0){
         if($table=="anomalia"){
-            $fields='zona, imagem, lingua, descricao, tem_anomalia_traducao';
-            $values=':zona, :imagem, :lingua, :descricao, :tem_anomalia_traducao';
+            $fields='zona, imagem, lingua, descricao, tem_anomalia_redacao';
+            $values=':zona, :imagem, :lingua, :descricao, :tem_anomalia_redacao';
             
             $zona='('.$_REQUEST['x1'].','.$_REQUEST['y1'].','.$_REQUEST['x2'].','.$_REQUEST['y2'].')';
             $imagem=$_REQUEST['imagem'];
             $lingua=$_REQUEST['lingua'];
             $descricao=$_REQUEST['descricao'];
-            $tem_anomalia_traducao=$_REQUEST['traducao'];
+            $tem_anomalia_redacao=$_REQUEST['traducao'];
             
             /*if(!empty($_POST['time'])){
-                $fields='zona, imagem, lingua, descricao, tem_anomalia_traducao, ts';
-                $values=':zona, :imagem, :lingua, :descricao, :tem_anomalia_traducao, :ts';
+                $fields='zona, imagem, lingua, descricao, tem_anomalia_redacao, ts';
+                $values=':zona, :imagem, :lingua, :descricao, :tem_anomalia_redacao, :ts';
                 $ts=$_REQUEST['date']." ".$_REQUEST['time'].'.000000';
                 $sql = "INSERT INTO :table ($fields)VALUES($values);";
                 $result = $db->prepare($sql);
-                $result->execute([':table' => $table, ':zona' => $zona, ':imagem' => $imagem, ':lingua' => $lingua, ':ts' => $ts, ':descricao' => $descricao, ':tem_anomalia_traducao' => $tem_anomalia_traducao]);
+                $result->execute([':table' => $table, ':zona' => $zona, ':imagem' => $imagem, ':lingua' => $lingua, ':ts' => $ts, ':descricao' => $descricao, ':tem_anomalia_redacao' => $tem_anomalia_redacao]);
             }*/
 
             $sql = "INSERT INTO anomalia ($fields)VALUES($values) RETURNING id;";
             $result = $db->prepare($sql);
-            $result->execute([':zona' => $zona, ':imagem' => $imagem, ':lingua' => $lingua, ':descricao' => $descricao, ':tem_anomalia_traducao' => $tem_anomalia_traducao]);
-            if($tem_anomalia_traducao=="True"){
+            $result->execute([':zona' => $zona, ':imagem' => $imagem, ':lingua' => $lingua, ':descricao' => $descricao, ':tem_anomalia_redacao' => $tem_anomalia_redacao]);
+            if($tem_anomalia_redacao=="False"){
                 foreach ($result as $row) {
                     $id=$row['id'];
                     break;

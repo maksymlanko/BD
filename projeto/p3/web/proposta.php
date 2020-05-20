@@ -87,7 +87,7 @@ catch (PDOException $e) {
     <p>Texto: <input id="texto" name="texto" value="<?=$texto?>"/></p>
 
     
-    <p><input type="reset"><input type="submit" value="Submit"/></p>
+    <p><input type="submit" value="Submit"/></p>
 </form>
 
 <?php $db = null; ?>
