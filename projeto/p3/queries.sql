@@ -44,5 +44,26 @@ WHERE it.latitude < 39.336775 and pdc.data_hora BETWEEN '2020-01-01 00:00:00' an
 GROUP BY pdc.email;
 
 --4
+--todos os que registaram pelo menos uma igual
+SELECT pdc.email
+FROM proposta_de_correcao pdc
+NATURAL JOIN correcao c
+LEFT JOIN incidencia i ON c.anomalia_id=i.anomalia_id
+LEFT JOIN utilizador u ON i.email=u.email
+LEFT JOIN anomalia a ON a.id=i.anomalia_id
+WHERE ts BETWEEN '2020-01-01' AND '2020-12-31 23:59:59.999999'
+AND pdc.email = u.email
+GROUP BY pdc.email
 
+EXCEPT
+--todos os que não registaram alguma igual
+SELECT pdc.email
+FROM proposta_de_correcao pdc
+NATURAL JOIN correcao c
+LEFT JOIN incidencia i ON c.anomalia_id=i.anomalia_id
+LEFT JOIN utilizador u ON i.email=u.email
+LEFT JOIN anomalia a ON a.id=i.anomalia_id
+WHERE ts BETWEEN '2020-01-01' AND '2020-12-31 23:59:59.999999'
+AND pdc.email <> u.email
+GROUP BY pdc.email;
 

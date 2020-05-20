@@ -116,7 +116,7 @@ INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VA
 INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VALUES('(1815,4769,1944,4939)','https://picsum.photos/200/300', 'HrhaKGUxLFcXMMhLUrOvllBpY', 'WHNGCzWciuMIveQstxVMMTIUNzJoNUMYiRLwQJjmUklHmJLTMZStLDV', 'False');
 INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VALUES('(2411,4051,2779,4147)','https://picsum.photos/200/300', 'AmigrZdxMcrqhQYrLCQpxjJmE', 'QvZbBFgmIcRJClICcPrzyvlvaUAvMyRjimzKdboKvBAhdbDaFhHtKor', 'False');
 INSERT INTO anomalia (zona, imagem, lingua, descricao, tem_anomalia_traducao) VALUES('(636,2807,1678,4107)','https://picsum.photos/200/300', 'ZyGgRXGnCctiFvDSSLfzWVytU', 'NscNCHnIliCzchyLDauIKhyDPqiidBEHiRANgQcbDmCOBwJevuClXEF', 'False');
-INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('1', '1', 'lJmiZpUgxVOqhOSD@ist.utl.pt');
+INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('1', '1', 'test@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('2', '2', 'GjpqVswlogCVtiib@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('3', '2', 'TCvVcIgWLqxhiCCB@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('4', '9', 'lJmiZpUgxVOqhOSD@ist.utl.pt');
@@ -124,7 +124,7 @@ INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('5', '10', 'GjpqVswl
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('6', '11', 'TCvVcIgWLqxhiCCB@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('7', '12', 'lJmiZpUgxVOqhOSD@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('8', '13', 'GjpqVswlogCVtiib@ist.utl.pt');
-INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('9', '14', 'TCvVcIgWLqxhiCCB@ist.utl.pt');
+INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('9', '14', 'mariaines@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('10', '9', 'test@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('11', '10', 'DkNrKthftLsHpiGr@ist.utl.pt');
 INSERT INTO incidencia (anomalia_id, item_id, email) VALUES('12', '11', 'DkNrKthftLsHpiGr@ist.utl.pt');
