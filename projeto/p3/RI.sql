@@ -1,8 +1,3 @@
-DROP TRIGGER check_zona
-DROP TRIGGER check_utilizador_r
-DROP TRIGGER check_utilizador_q
-DROP TRIGGER check_utilizador
-
 create or replace function insert_proposta(mail varchar(60), fix varchar(500))
 	returns int as 
 $$
