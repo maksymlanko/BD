@@ -75,7 +75,7 @@ def anomalia():
     text2 = stringGen(size=55)
     tabelas["anomalia"].append((zona, img, ling, text2))
 
-    final=insert.format("anomalia", "zona, imagem, lingua, descricao, tem_anomalia_traducao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"', 'False'")
+    final=insert.format("anomalia", "zona, imagem, lingua, descricao, tem_anomalia_redacao", "'("+str(zona[0])+","+str(zona[1])+","+str(zona[2])+","+str(zona[3])+")','"+img+"', '"+ling+"', '"+text2+"', 'True'")
     """if(random.randint(0,5)==0):3
         zona=[random.randint(5001,9998),random.randint(5001,9998)]
         fimZona=[random.randint(zona[0],9999),random.randint(zona[1],9999)]

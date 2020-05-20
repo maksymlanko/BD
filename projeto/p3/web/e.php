@@ -41,7 +41,7 @@ catch (PDOException $e) {
             }
         ?>
     </select></p>
-    <p><input type="reset"><input type="submit" value="Submit"/></p>
+    <p><input type="submit" value="Submit"/></p>
 </form>
 <?php $db = null; ?>
 <?php include "footer.php" ?>

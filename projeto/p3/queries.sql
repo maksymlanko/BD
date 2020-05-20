@@ -26,7 +26,7 @@ FROM incidencia inc
 	JOIN item it 
         ON inc.item_id = it.id
 	NATURAL JOIN local_publico l
-WHERE anom.tem_anomalia_traducao is true
+WHERE anom.tem_anomalia_redacao is false
 	AND anom.ts BETWEEN '2020-01-01' AND '2020-06-30 23:59:59.999999'
 GROUP BY l.latitude, l.longitude
 HAVING COUNT(*) >= ALL (
@@ -37,7 +37,7 @@ HAVING COUNT(*) >= ALL (
 	    JOIN item it 
             ON inc.item_id = it.id
 	    NATURAL JOIN local_publico l
-	WHERE anom.tem_anomalia_traducao is true
+	WHERE anom.tem_anomalia_redacao is false
 	    AND anom.ts BETWEEN '2020-01-01' AND '2020-06-30 23:59:59.999999'
 	GROUP BY inc.item_id
 );

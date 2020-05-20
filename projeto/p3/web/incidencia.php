@@ -106,7 +106,7 @@
     </table>
     <img src="" id="imagem"/>
 
-    <p><input type="reset"><input type="submit" value="Submit"/></p>
+    <p><input type="submit" value="Submit"/></p>
 </form>
 
 <?php $db = null; ?>

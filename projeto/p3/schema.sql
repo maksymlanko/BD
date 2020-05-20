@@ -36,7 +36,7 @@ CREATE TABLE anomalia(
 	lingua VARCHAR(30) NOT NULL,
 	ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	descricao VARCHAR(500) NOT NULL,
-	tem_anomalia_traducao BOOLEAN NOT NULL,
+	tem_anomalia_redacao BOOLEAN NOT NULL,
 	CONSTRAINT validate_zona check(zona like '(%,%,%,%)')
 );
 

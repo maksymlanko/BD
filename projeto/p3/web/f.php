@@ -18,7 +18,7 @@
     <p>Variação de Longitude: <input value="" required placeholder="000.000000" step="0.000001" type="number" name="dlon" min="0" max="180.000000" size="10px"/></p>
     
 
-    <p><input type="reset"><input type="submit" value="Submit"/></p>
+    <p><input type="submit" value="Submit"/></p>
 </form>
 <?php include "footer.php" ?>
 </body>
