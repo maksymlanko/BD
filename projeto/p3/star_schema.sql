@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS d_Utilizador;
 create table d_Utilizador(
 	id_Utilizador SERIAL PRIMARY KEY UNIQUE,

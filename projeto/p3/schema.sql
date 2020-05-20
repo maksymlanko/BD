@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS correcao;
+DROP TABLE IF EXISTS proposta_de_correcao;
+DROP TABLE IF EXISTS incidencia;
+DROP TABLE IF EXISTS utilizador_regular;
+DROP TABLE IF EXISTS utilizador_qualificado;
+DROP TABLE IF EXISTS utilizador;
+DROP TABLE IF EXISTS duplicado;
+DROP TABLE IF EXISTS anomalia_traducao;
+DROP TABLE IF EXISTS anomalia;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS local_publico;
+
 CREATE TABLE local_publico(
 	latitude DECIMAL(8,6) NOT NULL UNIQUE,
 	longitude DECIMAL(9,6) NOT NULL UNIQUE,
@@ -17,7 +29,6 @@ CREATE TABLE item(
 	FOREIGN KEY (longitude) REFERENCES local_publico(longitude)
 );
 
---https://www.journaldev.com/16774/sql-data-types
 CREATE TABLE anomalia(
 	id SERIAL PRIMARY KEY NOT NULL UNIQUE,
 	zona VARCHAR(21) NOT NULL,	--(0000,0000,0000,0000)
@@ -25,14 +36,16 @@ CREATE TABLE anomalia(
 	lingua VARCHAR(30) NOT NULL,
 	ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	descricao VARCHAR(500) NOT NULL,
-	tem_anomalia_traducao BOOLEAN NOT NULL
+	tem_anomalia_traducao BOOLEAN NOT NULL,
+	CONSTRAINT validate_zona check(zona like '(%,%,%,%)')
 );
 
 CREATE TABLE anomalia_traducao(
 	id int NOT NULL,
 	zona2 VARCHAR(21) NOT NULL,
 	lingua2 VARCHAR(30) NOT NULL,
-	FOREIGN KEY (id) REFERENCES anomalia(id)
+	FOREIGN KEY (id) REFERENCES anomalia(id),
+	CONSTRAINT validate_zona check(zona2 like '(%,%,%,%)')
 );
 
 CREATE TABLE duplicado(
@@ -47,8 +60,8 @@ CREATE TABLE duplicado(
 CREATE TABLE Utilizador(
 	email VARCHAR(60) UNIQUE NOT NULL,
 	password VARCHAR(64) NOT NULL,
-	PRIMARY KEY(email),										--https://www.w3schools.com/sql/sql_primarykey.ASP
-	CONSTRAINT validate_email check(email like '%_@_%._%')	--https://www.w3schools.com/sql/sql_check.asp
+	PRIMARY KEY(email),
+	CONSTRAINT validate_email check(email like '%_@_%._%')
 );
 
 CREATE TABLE Utilizador_Qualificado(

@@ -1,5 +1,3 @@
-
-
 insert into d_utilizador(email)
 select email
 from Utilizador_Qualificado;
