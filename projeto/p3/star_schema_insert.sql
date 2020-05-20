@@ -106,19 +106,14 @@ full outer join (select id, latitude, longitude from item) AS faa on foo.item_id
 
 UPDATE f_anomalia
 SET tipo_anomalia = 'traducao'
-where id_lingua in (select id_lingua from d_lingua inner join (select ts as data_anomalia, lingua, lingua2, email_incidencia, email_utilizador, email_proposta, latitude, longitude
+where id_lingua in (select id_lingua from d_lingua inner join (select ts as data_anomalia, lingua, lingua2, email_incidencia, email_utilizador, email_proposta, latitude, longitude, tem_anomalia_traducao
 from anomalia full outer join anomalia_traducao on anomalia.id = anomalia_traducao.id
 full outer join (select anomalia_id,item_id, email as email_incidencia from incidencia) AS foo on anomalia.id = foo.anomalia_id
 full outer join (select email as email_utilizador from utilizador) AS fee on foo.email_incidencia = fee.email_utilizador
 full outer join (select email as email_proposta from proposta_de_correcao) AS fii on fee.email_utilizador = fii.email_proposta
-full outer join (select id, latitude, longitude from item) AS faa on foo.item_id = faa.id) as T on d_lingua.lingua = T.lingua2);
+full outer join (select id, latitude, longitude from item) AS faa on foo.item_id = faa.id) as T on d_lingua.lingua = T.lingua2 and T.tem_anomalia_traducao=true);
 
 UPDATE f_anomalia
 SET tipo_anomalia = 'redacao'
-where id_lingua in (select id_lingua from d_lingua inner join (select ts as data_anomalia, lingua, lingua2, email_incidencia, email_utilizador, email_proposta, latitude, longitude
-from anomalia full outer join anomalia_traducao on anomalia.id = anomalia_traducao.id
-full outer join (select anomalia_id,item_id, email as email_incidencia from incidencia) AS foo on anomalia.id = foo.anomalia_id
-full outer join (select email as email_utilizador from utilizador) AS fee on foo.email_incidencia = fee.email_utilizador
-full outer join (select email as email_proposta from proposta_de_correcao) AS fii on fee.email_utilizador = fii.email_proposta
-full outer join (select id, latitude, longitude from item) AS faa on foo.item_id = faa.id) as T on d_lingua.lingua != T.lingua2);
+where id_lingua is not null and tipo_anomalia is null;
 
