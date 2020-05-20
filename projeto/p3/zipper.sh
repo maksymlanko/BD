@@ -1,0 +1,2 @@
+rm -f entrega-03-05.zip
+zip entrega-03-05.zip etl.sql populate.sql relatorio05.pdf schema.sql star_schema.sql olap.sql queries.sql RI.sql web/e.php web/f.php web/info.php web/item.php web/index.php web/local.php web/style.css web/footer.php web/update.php web/connect.php web/display.php web/anomalia.php web/correcao.php web/proposta.php web/functions.php web/viewImage.php web/index.php web/duplicados.php web/incidencia.php
