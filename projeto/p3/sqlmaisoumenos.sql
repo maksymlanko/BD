@@ -11,7 +11,8 @@ FROM local_publico NATURAL JOIN
 		GROUP BY item_id)
 	  ) sub
 */
-	
+
+/*
 SELECT local_publico, count(*)
 FROM incidencia 
 	NATURAL JOIN item 		-- tirar item?
@@ -24,12 +25,15 @@ HAVING count(*) <= ALL (
 		NATURAL JOIN local_publico
 	GROUP BY local_publico
 	);
+*/
 
+/*
 SELECT local_publico, count(anomalia_id)
 FROM incidencia
 	NATURAL JOIN item 		-- tirar item?
 	NATURAL JOIN local_publico 			-- join ON? item_id.latitude,longitude = local_publico ?
 GROUP BY local_publico;
+*/
 /*
 HAVING count(*) <= ALL (
 	SELECT COUNT(*)
@@ -41,7 +45,7 @@ HAVING count(*) <= ALL (
 */
 
 -- 2.1: 
-
+/*
 SELECT l
 FROM incidencia inc
 	JOIN anomalia anom ON inc.anomalia_id = anom.id
@@ -53,6 +57,7 @@ HAVING COUNT(*) <= ALL (
 	FROM incidencia
 	GROUP BY incidencia.item_id
 	);
+*/
 
 -- nao sei ta mal o de cima pq isto?
 /*
@@ -70,7 +75,7 @@ GROUP BY incidencia.item_id
 */
 
 -- 2.2:
-
+/*
 SELECT l
 FROM incidencia inc
 	JOIN anomalia anom ON inc.anomalia_id = anom.id
@@ -81,13 +86,18 @@ WHERE anom.tem_anomalia_traducao is true
 GROUP BY l
 HAVING COUNT(*) >= ALL (
 	SELECT COUNT(*)
-	FROM incidencia
-	GROUP BY incidencia.item_id
+	FROM incidencia inc
+	JOIN anomalia anom ON inc.anomalia_id = anom.id
+	JOIN item it ON inc.item_id = it.id
+	NATURAL JOIN local_publico l
+	WHERE anom.tem_anomalia_traducao is true
+	AND anom.ts BETWEEN '2020-01-01' AND '2020-07-01'
+	GROUP BY inc.item_id
 	);
-
+*/
 -- 2.3:
 -- tentar com DIVIDE
-
+/*
 SELECT utilizador
 FROM proposta_de_correcao
 	NATURAL JOIN utilizador
@@ -110,6 +120,25 @@ HAVING COUNT(*) < (
 		WHERE nome = 'Rio Maior'
 		)
 	)
+*/
+
+-- 2.4:
+
+SELECT incidencia
+FROM incidencia
+	NATURAL JOIN proposta_de_correcao
+WHERE data_hora > '2020-01-01' AND data_hora < '2021-01-01'
+GROUP BY incidencia
+HAVING COUNT(*) = (
+	SELECT COUNT(*)
+	FROM incidencia
+	JOIN anomalia ON incidencia.anomalia_id = anomalia.id
+	WHERE ts > '2020-01-01' AND ts < '2021-01-01'
+	GROUP BY incidencia
+	)
+	
+
+
 
 
 /*
